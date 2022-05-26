@@ -62,6 +62,47 @@ init_GTEx <- matrinet_init(cancers = cancers, cohort = "GTEx",
 
 ```
 
+```r
+
+
+############### PROCESS mRNA DATA ################
+#Step 1: Define quantiles for discretization
+#Step 2: Get discretized mRNA data and corresponding mRNA-profile data
+
+##################################################
+
+discretization_levels <- c(log2(10+1), log2(1000+1))
+
+
+#### STEP 1-2######
+
+matridata_GTEx <- matrinet_data(datalist = matrisome_GTEx,
+                                quantiles = discretization_levels,
+                                genenams = valid_genes)
+
+
+matridata_TCGA <- matrinet_data(datalist = matrisome_TCGA,
+                                quantiles = discretization_levels,
+                                genenams = valid_genes)
+
+
+
+#### STEP 4 ######
+############### Create network object ################
+
+
+
+matrigraph_TCGA <- matrinet_graph(datalist = matrisome_TCGA,
+                                  prior_topology = matrixDB_adjacency[valid_genes,
+                                                                     valid_genes])
+
+matrigraph_GTEx <- matrinet_graph(datalist = matrisome_GTEx,
+                                  prior_topology = matrixDB_adjacency[valid_genes,
+                                                                      valid_genes])
+
+
+```
+
 _For more examples, please refer to the [Documentation]()_
 
 <p align="right">(<a href="#top">back to top</a>)</p>
