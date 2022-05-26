@@ -1,0 +1,22 @@
+Package: matrinetR
+Type: Package
+Title: R package for the Analysis of extracellular matrix network dynamics 
+Version: 0.0.0.9000
+Authors@R: person(given= "Juho",
+    family = "Kontio", 
+    email ="juho.ajkontio@outlook.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-2354-0443"))
+Description: This package provides a toolset for the analysis of extracellular matrix associated protein/gene network across various tumor and normal tissue samples.
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.2
+Imports:
+    igraph,
+    infotheo,
+    philentropy,
+    dplyr,
+    magrittr,
+    purrr
+Depends: 
+    R (>= 2.10)
