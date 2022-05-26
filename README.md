@@ -48,8 +48,19 @@ valid_genes <- available_genes(matrisome_genes,
 
 
 ```
+MatrinetR requires specific input data objects that can be created automatically with *matrinet_init* function as follows:
 
+```r
 
+init_TCGA <- matrinet_init(cancers = cancers, cohort = "TCGA",
+              TCGA = matrisome_TCGA,
+              subset_genes = valid_genes)
+
+init_GTEx <- matrinet_init(cancers = cancers, cohort = "GTEx",
+                           GTEx = matrisome_GTEx,
+                           subset_genes = valid_genes)
+
+```
 
 _For more examples, please refer to the [Documentation]()_
 
