@@ -33,7 +33,7 @@ MatrinetR contains pre-processed gene expression and clinical data for 23 tumor 
 ```
 
 
-## Tutorial
+## Tutorial for new features
 
 ```r
 
