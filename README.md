@@ -32,6 +32,25 @@ MatrinetR contains pre-processed gene expression and clinical data for 23 tumor 
 ?matrisome_GTEx
 ```
 
+
+## Tutorial
+
+```r
+
+matrisome_genes <- unique(c(matrixDB$gene.x, matrixDB$gene.y))
+cancers <- c("brca", "ov", "prad")
+
+
+valid_genes <- available_genes(matrisome_genes,
+                               cancers = cancers,
+                               TCGA = matrisome_TCGA, GTEx = matrisome_GTEx,
+                               remove.allNA = TRUE)
+
+
+```
+
+
+
 _For more examples, please refer to the [Documentation]()_
 
 <p align="right">(<a href="#top">back to top</a>)</p>
