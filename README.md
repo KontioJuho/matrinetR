@@ -14,17 +14,22 @@ devtools::install_github("KontioJuho/matrinetR")
 
 
 <!-- USAGE EXAMPLES -->
-## Gene-expression data across various tumor and normal tissue samples 
-
-MatrinetR data repository contains pre-processed gene-expression and clinical data for each tumor from The Cancer Genome Atlas (TCGA) and corresponding normal (GTEx) tissues from the Genotype-Tissue Expression (GTEx) database. 
+Matrinet network structures are built based on experimentally verified matrisome interactions present in the MatrixDB database (http://matrixdb.univ-lyon1.fr). These interactions are stored into *matrixDB* object available in data folder. 
 
 ```r
 library(matrinetR)
 
-?matrisome_TCGA
-?matrisome_GTEx
 ?matrixDB
 
+```
+
+## MatrinetR for gene expression data 
+
+MatrinetR contains pre-processed gene expression and clinical data for 23 tumor types from The Cancer Genome Atlas (TCGA) and corresponding normal (GTEx) tissues from the Genotype-Tissue Expression (GTEx) database, as well as immunohistochemistry staining profiles from The Human Protein Atlas (THPA).
+
+```r
+?matrisome_TCGA
+?matrisome_GTEx
 ```
 
 _For more examples, please refer to the [Documentation]()_
