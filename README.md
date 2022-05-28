@@ -35,6 +35,8 @@ MatrinetR contains pre-processed gene expression and clinical data for 23 tumor 
 
 ## Tutorial for new features
 
+The MatrinetR workflow begins by defining the target genes and ensuring that they are accessible in the gene/protein data set. In this example, our target genes are all genes in the matrixDB interaction dataset and it seems that 363 of them are available in both GTEx and TCGA cohorts.
+
 ```r
 
 matrisome_genes <- unique(c(matrixDB$gene.x, matrixDB$gene.y))
@@ -48,7 +50,7 @@ valid_genes <- available_genes(matrisome_genes,
 
 
 ```
-MatrinetR requires specific input data objects that can be created automatically with *matrinet_init* function as follows:
+The next step is to the specify matridata objects for each cohort which automatically extacts available variables and checks if they are valid for the network estimation process. A variable is selected if it is measured on 95% of all samples in each selected cancer type and cohort (i.e. almost complete cases only).  If the number of missing values is less than 5% of all observations, the default imputation method is to use a variable and group specific median. For this example, we will use all available variables in the dataset.
 
 ```r
 
