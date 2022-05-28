@@ -87,7 +87,10 @@ matridata_TCGA <- matrinet_data(datalist = matrisome_TCGA,
                                 quantiles = discretization_levels,
                                 genenams = valid_genes)
 
+```
+After the data is prepared, the next step is  to combine all of the preceding data annotations into a single matrigraph object that will be subsequently updated based on the network estimations' outcomes.
 
+```r
 
 #### STEP 4 ######
 ############### Create network object ################
