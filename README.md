@@ -107,7 +107,25 @@ matrigraph_GTEx <- matrinet_graph(datalist = matrisome_GTEx,
 
 
 ```
+Matridata and matrigraph objects are the main two inputs to the actual network estimation step, handled by the function matrinet_estimate.  The function returns an updated matrigraph object that includes all of the edge weights and other relevant information about the estimation process.
 
+```r
+
+#### STEP 4 ######
+############### Create network object ################
+
+
+
+matrigraph_TCGA <- matrinet_graph(datalist = matrisome_TCGA,
+                                  prior_topology = matrixDB_adjacency[valid_genes,
+                                                                     valid_genes])
+
+matrigraph_GTEx <- matrinet_graph(datalist = matrisome_GTEx,
+                                  prior_topology = matrixDB_adjacency[valid_genes,
+                                                                      valid_genes])
+
+
+```
 _For more examples, please refer to the [Documentation]()_
 
 <p align="right">(<a href="#top">back to top</a>)</p>
