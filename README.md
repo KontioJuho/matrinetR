@@ -1,6 +1,5 @@
 ![My Image](network.jpeg)
-MatriNet is a recently published interactive database, available at [www.matrinet.org](),  designed for the analysis of extracellular matrix (ECM) protein networks across tumors.  The provided R package is an open-source repository and a modular extension of MatriNet (version 0.1) for creating an open-source methodological platform to promote collaborative efforts and community-driven solutions around the MatriNet program.
-
+MatriNet is a recently published interactive database, available at [www.matrinet.org](),  designed for the analysis of extracellular matrix (ECM) protein networks across tumors.  The provided R package is an open-source repository and a modular extension to MatriNet that enables local operations on the same data sources with enhanced customizations, previews features before their online implementation and promotes collaborative efforts and community-driven solutions for the MatriNet ecosystem.
 
 If you have any questions or suggestions, please feel free to contact us.
 
@@ -43,10 +42,16 @@ matrisome_genes <- unique(c(matrixDB$gene.x, matrixDB$gene.y))
 cancers <- c("brca", "ov", "prad")
 
 
-valid_genes <- available_genes(matrisome_genes,
-                               cancers = cancers,
-                               TCGA = matrisome_TCGA, GTEx = matrisome_GTEx,
-                               remove.allNA = TRUE)
+valid_genesTCGA <- available_genes(target_genes = matrisome_genes,
+                                   data = matrisome_TCGA[cancers])
+                                   
+valid_genesGTEx <- available_genes(target_genes = matrisome_genes, 
+                                   data = matrisome_GTEx[cancers])
+
+
+valid_genes <- intersect(valid_genesTCGA$available_zero_NAs,
+                         valid_genesGTEx$available_zero_NAs)
+
 
 
 ```
@@ -54,56 +59,30 @@ The next step is to the specify matridata objects for each cohort which automati
 
 ```r
 
-init_TCGA <- matrinet_init(cancers = cancers, cohort = "TCGA",
-              TCGA = matrisome_TCGA,
-              subset_genes = valid_genes)
+matridata_GTEx <- matrinet_data(data = matrisome_GTEx[cancers],
+                                quantiles = discretization_levels,
+                                genenames = valid_genes)
 
-init_GTEx <- matrinet_init(cancers = cancers, cohort = "GTEx",
-                           GTEx = matrisome_GTEx,
-                           subset_genes = valid_genes)
+
+matridata_TCGA <- matrinet_data(data = matrisome_TCGA[cancers],
+                                quantiles = discretization_levels,
+                                genenames = valid_genes)
 
 ```
 
-```r
 
-
-############### PROCESS mRNA DATA ################
-#Step 1: Define quantiles for discretization
-#Step 2: Get discretized mRNA data and corresponding mRNA-profile data
-
-##################################################
-
-discretization_levels <- c(log2(10+1), log2(1000+1))
-
-
-#### STEP 1-2######
-
-matridata_GTEx <- matrinet_data(datalist = matrisome_GTEx,
-                                quantiles = discretization_levels,
-                                genenams = valid_genes)
-
-
-matridata_TCGA <- matrinet_data(datalist = matrisome_TCGA,
-                                quantiles = discretization_levels,
-                                genenams = valid_genes)
-
-```
 After the data is prepared, the next step is  to combine all of the preceding data annotations into a single matrigraph object that will be subsequently updated based on the network estimations' outcomes.
 
 ```r
 
-#### STEP 4 ######
-############### Create network object ################
-
-
-
-matrigraph_TCGA <- matrinet_graph(datalist = matrisome_TCGA,
-                                  prior_topology = matrixDB_adjacency[valid_genes,
-                                                                     valid_genes])
-
-matrigraph_GTEx <- matrinet_graph(datalist = matrisome_GTEx,
+matrigraph_TCGA <- matrinet_graph(matridata = matridata_TCGA,
                                   prior_topology = matrixDB_adjacency[valid_genes,
                                                                       valid_genes])
+
+matrigraph_GTEx <- matrinet_graph(matridata = matridata_GTEx ,
+                                  prior_topology = matrixDB_adjacency[valid_genes,
+                                                                      valid_genes])
+
 
 
 ```
@@ -111,19 +90,11 @@ Matridata and matrigraph objects are the main two inputs to the actual network e
 
 ```r
 
-#### STEP 4 ######
-############### Create network object ################
+matrinet_TCGA <- matrinet_estimate(matrigraph = matrigraph_TCGA,
+                                   matridata = matridata_TCGA)
 
-
-
-matrigraph_TCGA <- matrinet_graph(datalist = matrisome_TCGA,
-                                  prior_topology = matrixDB_adjacency[valid_genes,
-                                                                     valid_genes])
-
-matrigraph_GTEx <- matrinet_graph(datalist = matrisome_GTEx,
-                                  prior_topology = matrixDB_adjacency[valid_genes,
-                                                                      valid_genes])
-
+matrinet_GTEx <- matrinet_estimate(matrigraph = matrigraph_GTEx,
+                                   matridata = matridata_GTEx)
 
 ```
 _For more examples, please refer to the [Documentation]()_
