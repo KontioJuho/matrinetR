@@ -35,7 +35,7 @@ The **matridata** is a list consisting an object for each sample group (e.g. by 
 
 
 
-## Tutorial for new features
+## Tutorial
 
 The MatrinetR workflow begins by defining the target genes and ensuring that they are accessible in the gene/protein data set. In this example, our target genes are all genes in the matrixDB interaction dataset and it seems that 363 of them are available in both GTEx and TCGA cohorts.
 
