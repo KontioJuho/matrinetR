@@ -13,7 +13,16 @@ devtools::install_github("KontioJuho/matrinetR")
 
 
 <!-- USAGE EXAMPLES -->
-Matrinet network structures are built based on experimentally verified matrisome interactions present in the MatrixDB database (http://matrixdb.univ-lyon1.fr). These interactions are stored into *matrixDB* object available in data folder. 
+## Matrinet objects
+The MatrinetR library has two major objects: matridata and matrigraph. The matridata is a list consisting an object *group* for each sample group (e.g. by tumor). Then each group object, is consisting of three different preprocessed gene/protein dataframes: 
+
+Continuous:  log2-transformed gene/protein expression data
+
+Discrete: Discretized gene/protein expression data (up/down regulation)
+
+Profile: Frequency distributions of discretized gene/protein expression levels.
+
+These three different types of dataframes are used in different ways in the network estimation process. All of the preceding network data, e.g. known interactions and  gene-specific annotations are combined into a single matrigraph entity that will be updated based on network estimates' outcomes.
 
 ```r
 library(matrinetR)
