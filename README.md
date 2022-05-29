@@ -1,6 +1,9 @@
 ![My Image](network.jpeg)
 MatriNet is a recently published database and analysis platform for the exploration of extracellular matrix (ECM) protein networks across tumors with interactive tools embedded into graphical user interfaces (available at www.matrinet.org).  This package is an open-source repository and a modular extension to MatriNet that enables local operations on the same data sources with enhanced customizations, previews features before their online implementation, and promotes collaborative efforts and community-driven solutions for the MatriNet ecosystem.
 
+MatrinetR contains pre-processed gene expression and clinical data for 23 tumor types from The Cancer Genome Atlas (TCGA) and corresponding normal (GTEx) tissues from the Genotype-Tissue Expression (GTEx) database, as well as immunohistochemistry staining profiles from The Human Protein Atlas (THPA).
+
+
 If you have any questions or suggestions, please feel free to contact us.
 
 <!-- GETTING STARTED -->
@@ -14,15 +17,15 @@ devtools::install_github("KontioJuho/matrinetR")
 
 <!-- USAGE EXAMPLES -->
 ## Matrinet objects
-The MatrinetR library has two major objects: matridata and matrigraph. The matridata is a list consisting an object *group* for each sample group (e.g. by tumor). Then each group object, is consisting of three different preprocessed gene/protein dataframes: 
+The MatrinetR library has two major objects: matridata and matrigraph. The matridata is a list consisting an object for each sample group (e.g. by tumor). Then each group object, is consisting of three different preprocessed gene/protein dataframes that are used in different ways in the network estimation process: 
 
-Continuous:  log2-transformed gene/protein expression data
+- Continuous: Log2-transformed gene/protein expression data with n (sample size) rows and p (number of genes) columns.
 
-Discrete: Discretized gene/protein expression data (up/down regulation)
+- Discrete: Discretized gene/protein expression data (up/down regulation) with n rows and p columns.
 
-Profile: Frequency distributions of discretized gene/protein expression levels.
+- Profile: Frequency distributions of discretized gene/protein expression levels with 3 rows (low, medium, high) and p columns.
 
-These three different types of dataframes are used in different ways in the network estimation process. All of the preceding network data, e.g. known interactions and  gene-specific annotations are combined into a single matrigraph entity that will be updated based on network estimates' outcomes.
+All of the preceding network data, e.g. known interactions and  gene-specific annotations are combined into a single matrigraph entity that will be updated based on network estimates' outcomes.
 
 ```r
 library(matrinetR)
@@ -31,9 +34,7 @@ library(matrinetR)
 
 ```
 
-## MatrinetR for gene expression data 
 
-MatrinetR contains pre-processed gene expression and clinical data for 23 tumor types from The Cancer Genome Atlas (TCGA) and corresponding normal (GTEx) tissues from the Genotype-Tissue Expression (GTEx) database, as well as immunohistochemistry staining profiles from The Human Protein Atlas (THPA).
 
 ```r
 ?matrisome_TCGA
