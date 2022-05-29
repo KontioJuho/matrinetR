@@ -66,6 +66,7 @@ The **matridata** is a list consisting an object for each sample group (e.g. by 
 
 ## Tutorial
 
+### Step 1: Check gene availability and validity
 The matrinetR workflow begins by specifying the target genes of interest to check if they are accessible in the gene/protein data set. Furthermore, the input datasets are considered to be valid for the network estimation process only with complete observations, i.e.,  without any missing values.  Both gene availability and validity can be checked automatically with the provided "available_genes"  functions with two arguments: a character vector of target genes and the input data. 
 
 ```r
@@ -89,7 +90,7 @@ valid_genes <- intersect(valid_genesTCGA$available_zero_NAs,
 ```
 It returns 1) available genenames, 2) missing genenames, 3) available genes without missing values, and 4) available genes with  less than 5% of missing values over samples in any group. Note that the option IV requires an additional missing-value imputation method to be employed.
 
-
+### Step 2: Create the input matridata 
 The next step is to the specify matridata objects for each cohort which automatically extacts available variables and checks if they are valid for the network estimation process. A variable is selected if it is measured on 95% of all samples in each selected cancer type and cohort (i.e. almost complete cases only).  If the number of missing values is less than 5% of all observations, the default imputation method is to use a variable and group specific median. 
 
 ```r
@@ -105,6 +106,7 @@ matridata_TCGA <- matrinet_data(data = matrisome_TCGA[cancers],
 
 ```
 
+### Step 3: Initialize the matrigraph structure
 
 The next step is to create initial matrigraph objects from the matrixDB data for all selected cancer groups in both cohorts:
 
@@ -121,6 +123,9 @@ matrigraph_GTEx <- matrinet_graph(matridata = matridata_GTEx ,
 
 
 ```
+### Step 4: Estimate the networks and update matrigraph objects
+
+
 The network estimation can be done simply from the above matridata and matrigraph objects with the matrinet_estimate function as follows:
 
 ```r
