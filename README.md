@@ -20,15 +20,15 @@ devtools::install_github("KontioJuho/matrinetR")
 ## Package structure
 The MatrinetR library has two major objects, **matridata** and **matrigraph**, with the corresponding **matrinet_data** and **matrinet_graph** functions. 
 
-<details><summary>CLICK ME</summary>
+<details><summary>CLICK TO SEE THE OUTPUT MATRIGRAPH</summary>
 <p>
 
 
 | Gene1 | Gene2 | Correlation  | Mutual information | Jensen-Shannon divergence |
 | --- | --- | --- |--- | --- |
-| `matrinet_data` |  List of |List of |List of | List of |
-| `matrinet_graph` | Matridata  |List of |List of |List of |
-| `matrinet_estimate` | Matridata and Matrigraph | Updated  |List of |List of |
+| A2M | IL10 | 0.24 | 0.21 | 0.03 |
+| A2M | TGM2 | -0.03 | 0.04 | 0.01 |
+| ACAN | COMP |  0.31  | 0.18 | 0.06 |
 
 </p>
 </details>
