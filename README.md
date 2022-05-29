@@ -17,18 +17,18 @@ devtools::install_github("KontioJuho/matrinetR")
 
 
 <!-- USAGE EXAMPLES -->
-## MatrinetR hierarchy
+## Package structure
 The MatrinetR library has two major objects, **matridata** and **matrigraph**, with the corresponding **matrinet_data** and **matrinet_graph** functions. 
 
 <details><summary>CLICK ME</summary>
 <p>
 
 
-| Gene1 | Gene2 | Output |
-| --- | --- | --- |
-| `matrinet_data` |  List of cancer specific data frames | Matridata: Prepared gene/protein expression data |
-| `matrinet_graph` | Matridata and the edgelist (+ additional annotations)| Matrigraph: A graph object |
-| `matrinet_estimate` | Matridata and Matrigraph | Updated Matrigraph object with added weight columns |
+| Gene1 | Gene2 | Correlation  | Mutual information | Jensen-Shannon divergence |
+| --- | --- | --- |--- | --- |
+| `matrinet_data` |  List of |List of |List of | List of |
+| `matrinet_graph` | Matridata  |List of |List of |List of |
+| `matrinet_estimate` | Matridata and Matrigraph | Updated  |List of |List of |
 
 </p>
 </details>
@@ -40,7 +40,8 @@ The MatrinetR library has two major objects, **matridata** and **matrigraph**, w
 | `matrinet_graph` | Matridata and the edgelist (+ additional annotations)| Matrigraph: A graph object |
 | `matrinet_estimate` | Matridata and Matrigraph | Updated Matrigraph object with added weight columns |
 
-The **matridata** is a list consisting an object for each sample group (e.g. by tumor). Then each group object, is consisting of three different preprocessed gene/protein dataframes that are used in different ways in the network estimation process: 
+### Matridata 
+Matridata is a list consisting an object for each sample group (e.g. by tumor). Then each group object, is consisting of three different preprocessed gene/protein dataframes that are used in different ways in the network estimation process: 
 
 - Continuous: Log2-transformed gene/protein expression data with n (sample size) rows and p (number of genes) columns.
 
@@ -48,7 +49,9 @@ The **matridata** is a list consisting an object for each sample group (e.g. by 
 
 - Profile: Frequency distributions of discretized gene/protein expression levels with 3 rows (low, medium, high) and p columns.
 
-**Matrigraph** is the graph object that is created for each group and is consisting of two objects: **node.df** and **edge.df**.  All of the preceding network data, e.g. known interactions and prior weigths, are stored into a edge.df dataframe. By default, this is an edge-list with two colums, Gene1 and Gene2, representing experimentally verified matrisome interactions downloaded from matrixDB. Moreover, any number of gene-specific annotations could be added into a node.df dataframe as a new column. 
+
+
+Matrigraph is the graph object that is created for each group and is consisting of two objects: **node.df** and **edge.df**.  All of the preceding network data, e.g. known interactions and prior weigths, are stored into a edge.df dataframe. By default, this is an edge-list with two colums, Gene1 and Gene2, representing experimentally verified matrisome interactions downloaded from matrixDB. Moreover, any number of gene-specific annotations could be added into a node.df dataframe as a new column. 
 
 |genename | category | family |
 | --- | --- | --- |
