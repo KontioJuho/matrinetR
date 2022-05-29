@@ -16,7 +16,7 @@ devtools::install_github("KontioJuho/matrinetR")
 
 
 <!-- USAGE EXAMPLES -->
-## Matrinet objects
+## MatrinetR hierarchy
 The MatrinetR library has two major objects: matridata and matrigraph. The matridata is a list consisting an object for each sample group (e.g. by tumor). Then each group object, is consisting of three different preprocessed gene/protein dataframes that are used in different ways in the network estimation process: 
 
 - Continuous: Log2-transformed gene/protein expression data with n (sample size) rows and p (number of genes) columns.
