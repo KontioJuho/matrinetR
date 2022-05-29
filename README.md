@@ -18,7 +18,7 @@ devtools::install_github("KontioJuho/matrinetR")
 
 <!-- USAGE EXAMPLES -->
 ## MatrinetR hierarchy
-The MatrinetR library has two major objects: matridata and matrigraph. 
+The MatrinetR library has two major objects, **matridata** and **matrigraph**, with the corresponding **matrinet_data** and **matrinet_graph** functions. 
 
 The **matridata** is a list consisting an object for each sample group (e.g. by tumor). Then each group object, is consisting of three different preprocessed gene/protein dataframes that are used in different ways in the network estimation process: 
 
