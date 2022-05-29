@@ -53,14 +53,21 @@ Matridata is a list consisting an object for each sample group (e.g. by tumor). 
 
 Matrigraph is the graph object that is created for each group and is consisting of two objects: **node.df** and **edge.df**.  All of the preceding network data, e.g. known interactions and prior weigths, are stored into a edge.df dataframe. By default, this is an edge-list with two colums, Gene1 and Gene2, representing experimentally verified matrisome interactions downloaded from matrixDB. Moreover, any number of gene-specific annotations could be added into a node.df dataframe as a new column. 
 
-|genename | category | family |
+|Gene | category | family |
 | --- | --- | --- |
 | IL10 | MATRISOME-ASSOCIATED | SECRETED FACTORS|
 | MFAP2 | CORE MATRISOME | ECM GLYCOPROTEINS|
 | MMP2 | MATRISOME-ASSOCIATED | ECM REGULATORS|
-| TGM2 | MATRISOME-ASSOCIATED | ECM REGULATORS|
-| ADAMTS5 | MATRISOME-ASSOCIATED | ECM REGULATORS|
+| ... | ... | ...|
 | COMP | CORE MATRISOME | ECM GLYCOPROTEINS|
+
+
+|Gene1 | Gene2 | Correlation | Mutual information | Jensen-Shannon Divergence | Custom metric |
+| --- | --- | --- | --- | --- | --- |
+| A2M | IL10 | 0.07 | 0.03 | 0.4 | 0.11|
+| A2M | MFAP2 | 0.32 | 0.21 | 0.04 | 0.45|
+| ... | ... | ... | ... | ...| ... |
+| ACAN | COMP | 0.28 | 0.25 | 0.17 | 0.16|
 
 **Updating matrigraph:** While matrigraph objects are created before the actual estimation process,  it also serves for storing the results. The main network estimation function, matrinet_estimate, takes matrigraph as an input and updates edge.df object by adding new columnds representing estimated weights for each element in the matrigraph edgelist.
 
