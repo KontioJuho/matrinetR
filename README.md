@@ -20,6 +20,26 @@ devtools::install_github("KontioJuho/matrinetR")
 ## MatrinetR hierarchy
 The MatrinetR library has two major objects, **matridata** and **matrigraph**, with the corresponding **matrinet_data** and **matrinet_graph** functions. 
 
+<details><summary>CLICK ME</summary>
+<p>
+
+
+| Gene1 | Gene2 | Output |
+| --- | --- | --- |
+| `matrinet_data` |  List of cancer specific data frames | Matridata: Prepared gene/protein expression data |
+| `matrinet_graph` | Matridata and the edgelist (+ additional annotations)| Matrigraph: A graph object |
+| `matrinet_estimate` | Matridata and Matrigraph | Updated Matrigraph object with added weight columns |
+
+</p>
+</details>
+
+
+| Function | Input | Output |
+| --- | --- | --- |
+| `matrinet_data` |  List of cancer specific data frames | Matridata: Prepared gene/protein expression data |
+| `matrinet_graph` | Matridata and the edgelist (+ additional annotations)| Matrigraph: A graph object |
+| `matrinet_estimate` | Matridata and Matrigraph | Updated Matrigraph object with added weight columns |
+
 The **matridata** is a list consisting an object for each sample group (e.g. by tumor). Then each group object, is consisting of three different preprocessed gene/protein dataframes that are used in different ways in the network estimation process: 
 
 - Continuous: Log2-transformed gene/protein expression data with n (sample size) rows and p (number of genes) columns.
@@ -30,6 +50,15 @@ The **matridata** is a list consisting an object for each sample group (e.g. by 
 
 **Matrigraph** is the graph object that is created for each group and is consisting of two objects: **node.df** and **edge.df**.  All of the preceding network data, e.g. known interactions and prior weigths, are stored into a edge.df dataframe. By default, this is an edge-list with two colums, Gene1 and Gene2, representing experimentally verified matrisome interactions downloaded from matrixDB. Moreover, any number of gene-specific annotations could be added into a node.df dataframe as a new column. 
 
+|genename | category | family |
+| --- | --- | --- |
+| IL10 | MATRISOME-ASSOCIATED | SECRETED FACTORS|
+| MFAP2 | CORE MATRISOME | ECM GLYCOPROTEINS|
+| MMP2 | MATRISOME-ASSOCIATED | ECM REGULATORS|
+| TGM2 | MATRISOME-ASSOCIATED | ECM REGULATORS|
+| ADAMTS5 | MATRISOME-ASSOCIATED | ECM REGULATORS|
+| COMP | CORE MATRISOME | ECM GLYCOPROTEINS|
+
 **Updating matrigraph:** While matrigraph objects are created before the actual estimation process,  it also serves for storing the results. The main network estimation function, matrinet_estimate, takes matrigraph as an input and updates edge.df object by adding new columnds representing estimated weights for each element in the matrigraph edgelist.
 
 
@@ -37,7 +66,7 @@ The **matridata** is a list consisting an object for each sample group (e.g. by 
 
 ## Tutorial
 
-The MatrinetR workflow begins by defining the target genes and ensuring that they are accessible in the gene/protein data set. In this example, our target genes are all genes in the matrixDB interaction dataset and it seems that 363 of them are available in both GTEx and TCGA cohorts.
+The matrinetR workflow begins by specifying the target genes of interest to check if they are accessible in the gene/protein data set. Furthermore, the input datasets are considered to be valid for the network estimation process only with complete observations, i.e.,  without any missing values.  Both gene availability and validity can be checked automatically with the provided "available_genes"  functions with two arguments: a character vector of target genes and the input data. 
 
 ```r
 
@@ -58,6 +87,9 @@ valid_genes <- intersect(valid_genesTCGA$available_zero_NAs,
 
 
 ```
+It returns 1) available genenames, 2) missing genenames, 3) available genes without missing values, and 4) available genes with  less than 5% of missing values over samples in any group. Note that the option IV requires an additional missing-value imputation method to be employed.
+
+
 The next step is to the specify matridata objects for each cohort which automatically extacts available variables and checks if they are valid for the network estimation process. A variable is selected if it is measured on 95% of all samples in each selected cancer type and cohort (i.e. almost complete cases only).  If the number of missing values is less than 5% of all observations, the default imputation method is to use a variable and group specific median. 
 
 ```r
