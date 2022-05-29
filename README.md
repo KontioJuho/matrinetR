@@ -74,7 +74,7 @@ matridata_TCGA <- matrinet_data(data = matrisome_TCGA[cancers],
 ```
 
 
-After the data is prepared, the next step is  to combine all of the preceding data annotations into a single matrigraph object that will be subsequently updated based on the network estimations' outcomes.
+The next step is to create initial matrigraph objects from the matrixDB data for all selected cancer groups in both cohorts:
 
 ```r
 
@@ -89,7 +89,7 @@ matrigraph_GTEx <- matrinet_graph(matridata = matridata_GTEx ,
 
 
 ```
-Matridata and matrigraph objects are the main two inputs to the actual network estimation step, handled by the function matrinet_estimate.  The function returns an updated matrigraph object that includes all of the edge weights and other relevant information about the estimation process.
+The network estimation can be done simply from the above matridata and matrigraph objects with the matrinet_estimate function as follows:
 
 ```r
 
