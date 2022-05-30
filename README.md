@@ -130,9 +130,9 @@ The matrinet_estimate, takes matrigraph and matridata as an input and estimates 
 
 | Datatype | Default metric | matrisome_THPA | matrisome_TCGA |matrisome_GTEx |
   | --- | --- | --- | --- | --- |
-  |  Continuous data | Pairwise correlation| Not available |Available |Available|
-  | Discrete data | Pairwise mutual information|Not available |Available|Available|
-  | Profile data | Jensen-Shannon |Available |Available|Available|
+  |  Continuous data | Correlation| Not available |Available |Available|
+  | Discrete data | Mutual information|Not available |Available|Available|
+  | Profile data | Jensen-Shannon Divergence |Available |Available|Available|
 
 
 <details><summary>Click to see an example</summary>
