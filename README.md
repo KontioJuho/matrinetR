@@ -27,7 +27,9 @@ The most central object of matrinetR package and the analysis workflow is **matr
 | `matrinet_graph` | Edgelist and Matridata | Matrigraph: Initial structure |
 | `matrinet_estimate` | Matridata and Matrigraph | Matrigraph: Updated structure|
 
-### Matrigraph: Initial structure
+## Matrigraph
+
+### Initial matrigraph structure
 Matrigraph is the graph object that is created for each group and is consisting of two objects: **node.df** and **edge.df**.  All of the preceding network data, e.g. known interactions and prior weigths, are stored into a edge.df dataframe. By default, this is an edge-list with two colums, Gene1 and Gene2, representing experimentally verified matrisome interactions downloaded from matrixDB. Moreover, any number of gene-specific annotations could be added into a node.df dataframe as a new column. 
 
 |Gene1 | Gene2 | Family 1 | Family 2 |
@@ -37,7 +39,7 @@ Matrigraph is the graph object that is created for each group and is consisting 
 | . . . | . . . | . . . |. . . |
 | COCH | COL2A1 | ECM GLYCOPROTEINS | COLLAGENS|
 
-### Matrigraph: Updated structure after the network estimation
+### Output matrigraph structure
 While matrigraph objects are created before the actual estimation process,  it also serves for storing the results. The main network estimation function, matrinet_estimate, takes matrigraph as an input and updates edge.df object by adding new columnds representing estimated weights for each element in the matrigraph edgelist.
 
 |Gene1 | Gene2 | Family 1 | Family 2 |  Correlation | Mutual information | Jensen-Shannon Divergence | 
@@ -47,9 +49,15 @@ While matrigraph objects are created before the actual estimation process,  it a
 | . . . | . . . | . . . |. . . | . . . | . . .| . . . |
 | COCH | COL2A1 |ECM GLYCOPROTEINS | COLLAGENS | 0.25 | 0.17 | 0.16|
 
-### Matridata 
+## Matridata 
 
 is a list consisting an object for each sample group (e.g. by tumor). Then each group object, is consisting of three different preprocessed gene/protein dataframes that are used in different ways in the network estimation process: 
+
+
+
+<img src="matridata.png" width="80%">
+
+
 
 **CONTINUOUS** 
 
