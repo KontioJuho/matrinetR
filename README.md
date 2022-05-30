@@ -19,6 +19,16 @@ devtools::install_github("KontioJuho/matrinetR")
 <!-- USAGE EXAMPLES -->
 ## Package structure
 The MatrinetR library has two major objects, **matridata** and **matrigraph**, with the corresponding **matrinet_data** and **matrinet_graph** functions. 
+Matridata is a list consisting an object for each sample group (e.g. by tumor). Then each group object, is consisting of three different preprocessed gene/protein dataframes that are used in different ways in the network estimation process: 
+
+- Continuous: Log2-transformed gene/protein expression data with n (sample size) rows and p (number of genes) columns.
+
+- Discrete: Discretized gene/protein expression data (up/down regulation) with n rows and p columns.
+
+- Profile: Frequency distributions of discretized gene/protein expression levels with 3 rows (low, medium, high) and p columns.
+
+
+
 
 <details><summary>CLICK TO SEE THE OUTPUT MATRIGRAPH</summary>
 <p>
@@ -36,41 +46,29 @@ The MatrinetR library has two major objects, **matridata** and **matrigraph**, w
 
 | Function | Input | Output |
 | --- | --- | --- |
-| `matrinet_data` |  List of cancer specific data frames | Matridata: Prepared gene/protein expression data |
-| `matrinet_graph` | Matridata and the edgelist (+ additional annotations)| Matrigraph: A graph object |
-| `matrinet_estimate` | Matridata and Matrigraph | Updated Matrigraph object with added weight columns |
+| `matrinet_data` |  List of cancer specific data frames | Matridata: Prepared gene/protein data|
+| `matrinet_graph` | Edgelist and Matridata | Matrigraph: Initial structure |
+| `matrinet_estimate` | Matridata and Matrigraph | Matrigraph: Updated structure|
 
-### Matridata 
-Matridata is a list consisting an object for each sample group (e.g. by tumor). Then each group object, is consisting of three different preprocessed gene/protein dataframes that are used in different ways in the network estimation process: 
-
-- Continuous: Log2-transformed gene/protein expression data with n (sample size) rows and p (number of genes) columns.
-
-- Discrete: Discretized gene/protein expression data (up/down regulation) with n rows and p columns.
-
-- Profile: Frequency distributions of discretized gene/protein expression levels with 3 rows (low, medium, high) and p columns.
-
-
-
+### Matrigraph: Initial structure
 Matrigraph is the graph object that is created for each group and is consisting of two objects: **node.df** and **edge.df**.  All of the preceding network data, e.g. known interactions and prior weigths, are stored into a edge.df dataframe. By default, this is an edge-list with two colums, Gene1 and Gene2, representing experimentally verified matrisome interactions downloaded from matrixDB. Moreover, any number of gene-specific annotations could be added into a node.df dataframe as a new column. 
 
-|Gene | category | family |
-| --- | --- | --- |
-| IL10 | MATRISOME-ASSOCIATED | SECRETED FACTORS|
-| MFAP2 | CORE MATRISOME | ECM GLYCOPROTEINS|
-| MMP2 | MATRISOME-ASSOCIATED | ECM REGULATORS|
-| ... | ... | ...|
-| COMP | CORE MATRISOME | ECM GLYCOPROTEINS|
+|Gene1 | Gene2 | Family 1 | Family 2 |
+| --- | --- | --- | --- |
+| A2M | IL10 | ECM REGULATORS | SECRETED FACTORS|
+| A2M | MFAP2 | ECM REGULATORS | ECM GLYCOPROTEINS|
+| . . . | . . . | . . . |. . . |
+| COCH | COL2A1 | ECM GLYCOPROTEINS | COLLAGENS|
 
+### Matrigraph: Updated structure after the network estimation
+While matrigraph objects are created before the actual estimation process,  it also serves for storing the results. The main network estimation function, matrinet_estimate, takes matrigraph as an input and updates edge.df object by adding new columnds representing estimated weights for each element in the matrigraph edgelist.
 
-|Gene1 | Gene2 | Correlation | Mutual information | Jensen-Shannon Divergence | Custom metric |
-| --- | --- | --- | --- | --- | --- |
-| A2M | IL10 | 0.07 | 0.03 | 0.4 | 0.11|
-| A2M | MFAP2 | 0.32 | 0.21 | 0.04 | 0.45|
-| ... | ... | ... | ... | ...| ... |
-| ACAN | COMP | 0.28 | 0.25 | 0.17 | 0.16|
-
-**Updating matrigraph:** While matrigraph objects are created before the actual estimation process,  it also serves for storing the results. The main network estimation function, matrinet_estimate, takes matrigraph as an input and updates edge.df object by adding new columnds representing estimated weights for each element in the matrigraph edgelist.
-
+|Gene1 | Gene2 | Family 1 | Family 2 |  Correlation | Mutual information | Jensen-Shannon Divergence | 
+| --- | --- | --- |--- | --- | --- | --- |
+| A2M | IL10 |ECM REGULATORS | SECRETED FACTORS | 0.03 | 0.4 | 0.11|
+| A2M | MFAP2 | ECM REGULATORS | ECM GLYCOPROTEINS | 0.21 | 0.04 | 0.45|
+| . . . | . . . | . . . |. . . | . . . | . . .| . . . |
+| COCH | COL2A1 |ECM GLYCOPROTEINS | COLLAGENS | 0.25 | 0.17 | 0.16|
 
 
 
