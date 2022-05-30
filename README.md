@@ -135,7 +135,7 @@ The matrinet_estimate, takes matrigraph and matridata as an input and estimates 
   | Profile data | Jensen-Shannon Divergence |Available |Available|Available|
 
 
-<details><summary>Click to see an example</summary>
+<details><summary>Click to see an output example</summary>
 <p>
 
 |Gene1 | Gene2 | Family 1 | Family 2 |  Correlation | Mutual information | Jensen-Shannon Divergence | 
