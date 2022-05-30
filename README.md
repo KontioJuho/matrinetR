@@ -19,29 +19,6 @@ devtools::install_github("KontioJuho/matrinetR")
 <!-- USAGE EXAMPLES -->
 ## Package structure
 The MatrinetR library has two major objects, **matridata** and **matrigraph**, with the corresponding **matrinet_data** and **matrinet_graph** functions. 
-Matridata is a list consisting an object for each sample group (e.g. by tumor). Then each group object, is consisting of three different preprocessed gene/protein dataframes that are used in different ways in the network estimation process: 
-
-- Continuous: Log2-transformed gene/protein expression data with n (sample size) rows and p (number of genes) columns.
-
-- Discrete: Discretized gene/protein expression data (up/down regulation) with n rows and p columns.
-
-- Profile: Frequency distributions of discretized gene/protein expression levels with 3 rows (low, medium, high) and p columns.
-
-
-
-
-<details><summary>CLICK TO SEE THE OUTPUT MATRIGRAPH</summary>
-<p>
-
-
-| Gene1 | Gene2 | Correlation  | Mutual information | Jensen-Shannon divergence |
-| --- | --- | --- |--- | --- |
-| A2M | IL10 | 0.24 | 0.21 | 0.03 |
-| A2M | TGM2 | -0.03 | 0.04 | 0.01 |
-| ACAN | COMP |  0.31  | 0.18 | 0.06 |
-
-</p>
-</details>
 
 
 | Function | Input | Output |
@@ -70,6 +47,64 @@ While matrigraph objects are created before the actual estimation process,  it a
 | . . . | . . . | . . . |. . . | . . . | . . .| . . . |
 | COCH | COL2A1 |ECM GLYCOPROTEINS | COLLAGENS | 0.25 | 0.17 | 0.16|
 
+### Matridata 
+
+is a list consisting an object for each sample group (e.g. by tumor). Then each group object, is consisting of three different preprocessed gene/protein dataframes that are used in different ways in the network estimation process: 
+
+**CONTINUOUS** 
+
+Log2-transformed gene/protein expression data with n (sample size) rows and p (number of genes) columns.
+<details><summary>Click to see an example</summary>
+<p>
+
+
+|ADAMTSL5 | ADIPOQ | AGRN | AMBP | AMELX | ANGPTL4 | AREG | BDNF | BGN | BMP1 | BMP2 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 3.32 | 5.2 | 12.93 | 2.54 | 0 | 5.2 | 9.49 | 1.69 | 13.36 | 9.19 | 2.78|
+| 5.54 | 6.91 | 11.45 | 2.69 | 0 | 9.91 | 6.95 | 4.85 | 13.91 | 9.9 | 3.92|
+| 6.32 | 10.83 | 13.19 | 4.51 | 0 | 10.55 | 12.45 | 2.73 | 14.9 | 10.69 | 4.04|
+| 6.97 | 5.13 | 13.66 | 5.33 | 0 | 6.03 | 10.59 | 3.12 | 14.63 | 10.69 | 4.69|
+| 5.23 | 6.75 | 13.31 | 4.21 | 0 | 7.06 | 10.48 | 3.61 | 14.42 | 10.66 | 4.3|
+| 5.18 | 4.78 | 13.33 | 4.43 | 0 | 5.8 | 8.24 | 6.47 | 14.79 | 10.31 | 4.87|
+
+  </p>
+</details>
+
+ **DISCRETE** 
+ 
+ Discretized gene/protein expression data (up/down regulation) with n rows and p columns.
+
+
+<details><summary>Click to see an example</summary>
+<p>
+
+
+  |ADAMTSL5 | ADIPOQ | AGRN | AMBP | AMELX | ANGPTL4 | AREG | BDNF | BGN | BMP1 | BMP2 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| -1 | 0 | 1 | -1 | -1 | 0 | 0 | -1 | 1 | 0 | -1|
+| 0 | 0 | 1 | -1 | -1 | 0 | 0 | 0 | 1 | 0 | 0|
+| 0 | 1 | 1 | 0 | -1 | 1 | 1 | -1 | 1 | 1 | 0|
+| 0 | 0 | 1 | 0 | -1 | 0 | 1 | -1 | 1 | 1 | 0|
+| 0 | 0 | 1 | 0 | -1 | 0 | 1 | 0 | 1 | 1 | 0|
+| 0 | 0 | 1 | 0 | -1 | 0 | 0 | 0 | 1 | 1 | 0|
+    </p>
+</details>
+
+**PROFILE** 
+
+  Frequency distributions of discretized gene/protein expression levels with 3 rows (low, medium, high) and p columns.
+
+<details><summary>Click to see an example</summary>
+<p>
+  
+  |ADAMTSL5 | ADIPOQ | AGRN | AMBP | AMELX | ANGPTL4 | AREG | BDNF | BGN | BMP1 | BMP2 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 0.1226 | 0.2206 | 0 | 0.5712 | 0.9975 | 0.0222 | 0.07 | 0.6815 | 0 | 0 | 0.1679|
+| 0.8774 | 0.5062 | 0.0272 | 0.4247 | 0.0025 | 0.8568 | 0.7523 | 0.3177 | 0.0091 | 0.7407 | 0.8288|
+| 0 | 0.2733 | 0.9728 | 0.0041 | 0 | 0.121 | 0.1778 | 0.0008 | 0.9909 | 0.2593 | 0.0033|
+  
+</p>
+</details>
 
 
 ## Tutorial
