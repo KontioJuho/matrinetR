@@ -33,7 +33,7 @@ matrinet_graph <- function(matridata, prior_topology, add_node_df = NULL, add_ed
     colnames(matrisome_edgelist) <- c("Gene1", "Gene2")
 
     x$edge_df  <- as.data.frame(matrisome_edgelist)
-    x$node_df <- as.data.frame(colnames(prior_topology))
+    x$node_df <- as.data.frame("Genenames" = colnames(prior_topology))
 
     if(!(is.null(add_node_df))){
 
