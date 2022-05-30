@@ -53,7 +53,8 @@ is a list consisting an object for each sample group (e.g. by tumor). Then each 
 
 **CONTINUOUS** 
 
-Log2-transformed gene/protein expression data with n (sample size) rows and p (number of genes) columns.
+For each sample group of interest, datasets of *continuous* type are consisting of the original log2-transformed gene/protein expression data with n (sample size) rows and p (number of genes) columns. 
+
 <details><summary>Click to see an example</summary>
 <p>
 
@@ -72,7 +73,7 @@ Log2-transformed gene/protein expression data with n (sample size) rows and p (n
 
  **DISCRETE** 
  
- Discretized gene/protein expression data (up/down regulation) with n rows and p columns.
+Datasets of *discrete* type are the discretized gene/protein expression-level version of *continuous* datasets with n rows and p columns with values -1, 0, and 1. Discretization levels can be defined by users (see tutorial).  
 
 
 <details><summary>Click to see an example</summary>
