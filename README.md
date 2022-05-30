@@ -30,15 +30,23 @@ The most central object of matrinetR package and the analysis workflow is **matr
 ### Initial matrigraph structure
 Matrigraph is the graph object that is created for each group and is consisting of two objects: **node.df** and **edge.df**.  All of the preceding network data, e.g. known interactions and prior weigths, are stored into a edge.df dataframe. By default, this is an edge-list with two colums, Gene1 and Gene2, representing experimentally verified matrisome interactions downloaded from matrixDB. Moreover, any number of gene-specific annotations could be added into a node.df dataframe as a new column. 
 
+<details><summary>Click to see an example</summary>
+<p>
+  
 |Gene1 | Gene2 | Family 1 | Family 2 |
 | --- | --- | --- | --- |
 | A2M | IL10 | ECM REGULATORS | SECRETED FACTORS|
 | A2M | MFAP2 | ECM REGULATORS | ECM GLYCOPROTEINS|
 | . . . | . . . | . . . |. . . |
 | COCH | COL2A1 | ECM GLYCOPROTEINS | COLLAGENS|
+  
+  </p>
+</details>
 
 ### Output matrigraph structure
 While matrigraph objects are created before the actual estimation process,  it also serves for storing the results. The main network estimation function, matrinet_estimate, takes matrigraph as an input and updates edge.df object by adding new columnds representing estimated weights for each element in the matrigraph edgelist.
+<details><summary>Click to see an example</summary>
+<p>
 
 |Gene1 | Gene2 | Family 1 | Family 2 |  Correlation | Mutual information | Jensen-Shannon Divergence | 
 | --- | --- | --- |--- | --- | --- | --- |
@@ -46,6 +54,9 @@ While matrigraph objects are created before the actual estimation process,  it a
 | A2M | MFAP2 | ECM REGULATORS | ECM GLYCOPROTEINS | 0.21 | 0.04 | 0.45|
 | . . . | . . . | . . . |. . . | . . . | . . .| . . . |
 | COCH | COL2A1 |ECM GLYCOPROTEINS | COLLAGENS | 0.25 | 0.17 | 0.16|
+  
+  </p>
+</details>
 
 ## Matridata 
 MatrinetR extends the original protein-level network analysis of MatriNet into a gene-level and provides pre-processed gene expression and clinical data for 23 tumor types from The Cancer Genome Atlas (TCGA) and corresponding normal (GTEx) tissues from the Genotype-Tissue Expression (GTEx) database. Since this provides an indidividual level expression data, a wide variety of different network estimation method can be applied. With gene-level data, matridata object is consisting of three separate dataframes of preprocessed mRNA data, that are used in different ways in the network estimation process: 
