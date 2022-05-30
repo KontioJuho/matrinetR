@@ -132,7 +132,23 @@ The matrinet_estimate, takes matrigraph and matridata as an input and estimates 
   | --- | --- | --- | --- | --- |
   |  Continuous data | Pairwise correlation| Not available |Available |Available|
   | Discrete data | Pairwise mutual information|Not available |Available|Available|
-  | Profile data | Jensen-Shannon diverge|Available |Available|Available|
+  | Profile data | Jensen-Shannon |Available |Available|Available|
+
+
+<details><summary>Click to see an example</summary>
+<p>
+
+|Gene1 | Gene2 | Family 1 | Family 2 |  Correlation | Mutual information | Jensen-Shannon Divergence | 
+| --- | --- | --- |--- | --- | --- | --- |
+| A2M | IL10 |ECM REGULATORS | SECRETED FACTORS | 0.03 | 0.4 | 0.11|
+| A2M | MFAP2 | ECM REGULATORS | ECM GLYCOPROTEINS | 0.21 | 0.04 | 0.45|
+| . . . | . . . | . . . |. . . | . . . | . . .| . . . |
+| COCH | COL2A1 |ECM GLYCOPROTEINS | COLLAGENS | 0.25 | 0.17 | 0.16|
+  
+  </p>
+</details>
+
+The weights are then added as new columns to the inital matrigraph edgelist (as shown above). This allows for a more thorough study of gene-gene interactions because all of them represent distinct types of pairwise dynamic between genes. Note that only Jensen-Shannon metric is available for the THPA data since only expression profile data is available.
 
 ## Tutorial
 
