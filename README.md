@@ -18,8 +18,7 @@ devtools::install_github("KontioJuho/matrinetR")
 
 <!-- USAGE EXAMPLES -->
 ## Package structure
-The MatrinetR library has two major objects, **matridata** and **matrigraph**, with the corresponding **matrinet_data** and **matrinet_graph** functions. 
-
+The most central object of matrinetR package and the analysis workflow is **matrigraph**. At first, all prior information about the genes/proteins (e.g.family/category)  and their underlying network structure (e.g., the edgelist from matrixDB) are stored into matrigraph by *initializing* it with the matrinet_graph function. Then the goal of the analysis is to update the initial matrigraph object with the properties estimated from input data using matrinet_estimate function that, in turn, requires gene/protein level input data. Since the estimation process build multiple network models simultaneously, the input data must be given in a specific **matridata** format, created automatically by the *matrinet_data* function.  
 
 | Function | Input | Output |
 | --- | --- | --- |
