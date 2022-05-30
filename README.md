@@ -124,6 +124,10 @@ MatrinetR extends the original protein-level network analysis of MatriNet into a
 </p>
 </details>
 
+## Network estimation
+
+The matrinet_estimate, takes matrigraph and matridata as an input and estimates network weights of different type for each element in the matrigraph edgelist. The default network weigts (that can be customized) are estimated from different data types as follows:
+
 | Datatype | Default metric | matrisome_THPA | matrisome_TCGA |matrisome_GTEx |
   | --- | --- | --- | --- | --- |
   |  Continuous data | Pairwise correlation| Not available |Available |Available|
