@@ -5,7 +5,6 @@ MatrinetR contains pre-processed gene expression and clinical data for 23 tumor 
 
 
 
-If you have any questions or suggestions, please feel free to contact us.
 
 <!-- GETTING STARTED -->
 ## Install the package
@@ -15,10 +14,12 @@ require(devtools)
 devtools::install_github("KontioJuho/matrinetR")
 ``` 
 
+If you have any questions or suggestions, please feel free to contact us.
 
 <!-- USAGE EXAMPLES -->
 ## Package structure
-The most central object of matrinetR package and the analysis workflow is **matrigraph**. At first, all prior information about the genes/proteins (e.g.family/category)  and their underlying network structure (e.g., the edgelist from matrixDB) are stored into matrigraph by *initializing* it with the matrinet_graph function. Then the goal of the analysis is to update the initial matrigraph object with the properties estimated from input data using matrinet_estimate function that, in turn, requires gene/protein level input data. Since the estimation process build multiple network models simultaneously, the input data must be given in a specific **matridata** format, created automatically by the *matrinet_data* function.  
+
+The most central object of matrinetR package and the analysis workflow is **matrigraph**. At first, all prior information about the genes/proteins (e.g.family/category)  and their underlying network structure (e.g., the edgelist from matrixDB) are stored into the *initial* matrigraph object. The matrinetR workflow is about updating the initial matrigraph  with properties estimated from the input data. This, in turn, requires gene/protein level input data, which must be given in a specific **matridata** form. The relationships between matrigraph, matridata, and provided functions can be summarized as follows:
 
 | Function | Input | Output |
 | --- | --- | --- |
