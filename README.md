@@ -67,13 +67,20 @@ MatrinetR extends the original protein-level network analysis of MatriNet into a
 
 
 
-**CONTINUOUS** 
 
-For each sample group of interest, datasets of *continuous* type are consisting of the original log2-transformed gene/protein expression data with n (sample size) rows and p (number of genes) columns. 
 
-<details><summary>Click to see an example</summary>
+**Continuous:** For each sample group of interest, datasets of *continuous* type are consisting of the original input data given at continuous scale.log2-transformed gene/protein expression data with n (sample size) rows and p (number of genes) columns. For example, by using the built-in *matrisome_TCGA* dataset, the above values represent the batch effect normalized and log2(norm_value+1) transformed expression levels, downloaded from UCSC Xenahub platform's PanCancer Atlas https://xenabrowser.net/datapages/.
+
+
+
+ 
+**Discrete:** Datasets of *discrete* type are the discretized gene/protein expression-level version of *continuous* datasets with n rows and p columns with values -1, 0, and 1. Discretization levels can be defined by users (see tutorial).  
+
+
+  **Profile:** Frequency distributions of discretized gene/protein expression levels with 3 rows (low, medium, high) and p columns.
+
+<details><summary>Continuous data example (click)</summary>
 <p>
-
 
 | sampleID | ADAMTSL5 | ADIPOQ | AGRN | AMBP | AMELX | ANGPTL4 | AREG | BDNF | BGN | BMP1 | BMP2 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -87,12 +94,8 @@ For each sample group of interest, datasets of *continuous* type are consisting 
   </p>
 </details>
 
- **DISCRETE** 
- 
-Datasets of *discrete* type are the discretized gene/protein expression-level version of *continuous* datasets with n rows and p columns with values -1, 0, and 1. Discretization levels can be defined by users (see tutorial).  
 
-
-<details><summary>Click to see an example</summary>
+<details><summary>Discretized data example (click)</summary>
 <p>
 
 
@@ -107,11 +110,9 @@ Datasets of *discrete* type are the discretized gene/protein expression-level ve
     </p>
 </details>
 
-**PROFILE** 
 
-  Frequency distributions of discretized gene/protein expression levels with 3 rows (low, medium, high) and p columns.
 
-<details><summary>Click to see an example</summary>
+<details><summary>Profile data example (click)</summary>
 <p>
   
 |Level |ADAMTSL5 | ADIPOQ | AGRN | AMBP | AMELX | ANGPTL4 | AREG | BDNF | BGN | BMP1 | BMP2 |
@@ -123,6 +124,11 @@ Datasets of *discrete* type are the discretized gene/protein expression-level ve
 </p>
 </details>
 
+| Datatype | Default metric | matrisome_THPA | matrisome_TCGA |matrisome_GTEx |
+  | --- | --- | --- | --- | --- |
+  |  Continuous data | Pairwise correlation| Not available |Available |Available|
+  | Discrete data | Pairwise mutual information|Not available |Available|Available|
+  | Profile data | Jensen-Shannon diverge|Available |Available|Available|
 
 ## Tutorial
 
