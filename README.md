@@ -223,6 +223,39 @@ matrinet_GTEx <- matrinet_estimate(matrigraph = matrigraph_GTEx,
                                    matridata = matridata_GTEx)
 
 ```
+
+## Visualization (PLACEHOLDER)
+
+Given the estimated network structures, users could apply a wide range of existing package, such as igraph, qgraph, and visnetwork, to create visual representations of estimated network structures with the following conversion:
+
+```r
+
+library(igraph)
+library(qgraph)
+library(visnetwork)
+
+g <- graph_from_data_frame(d = matrinet_TCGA$brca$edge_df,
+                           vertices = matrinet_TCGA$brca$node_df)
+
+visnet <- toVisNetworkData(g)
+
+visnet$edges$value <- visnet$edges$JensenShannon_P
+
+visNetwork(visnet$nodes, visnet$edges) %>%
+  visIgraphLayout(randomSeed = 123) %>%
+  visNodes(size = 10) %>%
+  visOptions(highlightNearest = list(enabled = T, hover = T), 
+             nodesIdSelection = T)
+
+
+#Convert the output matrigraph objects to weighted adjacency matrices
+weighted_adjmat <- matrigraph_to_adjacency(output_matrigraph = matrinet_TCGA)
+  qgraph::qgraph(weighted_adjmat$prad, edge.color = "dodgerblue4", curve = -0.2, curveAll = TRUE)
+
+```
+
+
+
 _For more examples, please refer to the [Documentation]()_
 
 <p align="right">(<a href="#top">back to top</a>)</p>
