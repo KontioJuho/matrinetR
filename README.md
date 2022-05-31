@@ -180,6 +180,7 @@ It returns 1) available genenames, 2) missing genenames, 3) available genes with
 The next step is to the specify matridata objects for each cohort which automatically extacts available variables and checks if they are valid for the network estimation process. A variable is selected if it is measured on 95% of all samples in each selected cancer type and cohort (i.e. almost complete cases only).  If the number of missing values is less than 5% of all observations, the default imputation method is to use a variable and group specific median. 
 
 ```r
+discretization_levels <- c(log2(10+1), log2(1000+1))
 
 matridata_GTEx <- matrinet_data(data = matrisome_GTEx[cancers],
                                 quantiles = discretization_levels,
