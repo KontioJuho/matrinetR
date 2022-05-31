@@ -233,7 +233,7 @@ Given the estimated network structures, users could apply a wide range of existi
 
 library(igraph)
 library(qgraph)
-library(visnetwork)
+library(visNetwork)
 
 g <- graph_from_data_frame(d = matrinet_TCGA$brca$edge_df,
                            vertices = matrinet_TCGA$brca$node_df)
@@ -246,7 +246,10 @@ visNetwork(visnet$nodes, visnet$edges) %>%
   visIgraphLayout(randomSeed = 123) %>%
   visNodes(size = 10) %>%
   visOptions(highlightNearest = list(enabled = T, hover = T), 
-             nodesIdSelection = T)
+             nodesIdSelection = T) %>% 
+  visInteraction(navigationButtons = T) 
+
+
 
 
 #Convert the output matrigraph objects to weighted adjacency matrices
