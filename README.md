@@ -208,10 +208,12 @@ matrigraph_GTEx <- matrinet_graph(matridata = matridata_GTEx ,
 
 
 ```
-<img src="degreebetweenness.png" width="100%">
 
-<details><summary>Click to see an example</summary>
+<details><summary>Click to a structural analysis example</summary>
 <p>
+  
+  <img src="degreebetweenness.png" width="100%">
+
   
 ```r
   
