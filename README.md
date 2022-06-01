@@ -67,8 +67,6 @@ MatrinetR extends the original protein-level network analysis of MatriNet into a
 
 
 
-
-
 **Continuous:** For each sample group of interest, datasets of *continuous* type are consisting of the original input data given at continuous scale.log2-transformed gene/protein expression data with n (sample size) rows and p (number of genes) columns. For example, by using the built-in *matrisome_TCGA* dataset, the above values represent the batch effect normalized and log2(norm_value+1) transformed expression levels, downloaded from UCSC Xenahub platform's PanCancer Atlas https://xenabrowser.net/datapages/.
 
 
@@ -210,6 +208,7 @@ matrigraph_GTEx <- matrinet_graph(matridata = matridata_GTEx ,
 
 
 ```
+<img src="degreebetweenness.png" width="100%">
 
 <details><summary>Click to see an example</summary>
 <p>
