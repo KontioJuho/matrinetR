@@ -210,6 +210,56 @@ matrigraph_GTEx <- matrinet_graph(matridata = matridata_GTEx ,
 
 
 ```
+
+<details><summary>Click to see an example</summary>
+<p>
+  
+```r
+  
+matrixDB_summary <- centrality_auto(matrixDB_adjacency[valid_genes,valid_genes])
+node.df.update <- matrixDB_summary$node.centrality[,c("Degree", "Betweenness")]
+
+
+top25_degree_genes <- node.df.update[order(node.df.update[,"Degree"], decreasing = T)[1:25], ]
+
+library(plotly)
+
+fig <- plot_ly(
+  data = top25_degree_genes,
+  x = rownames(top25_degree_genes),
+  y  = ~Degree,
+  name = "Degree",
+  type = "bar"
+) %>% 
+
+layout(xaxis = list(categoryorder = "total descending"))
+
+
+top25_betweenness_genes <- node.df.update[order(node.df.update[,"Betweenness"], decreasing = T)[1:25], ]
+
+
+fig2 <- plot_ly(
+  data = top25_betweenness_genes,
+  x = rownames(top25_betweenness_genes),
+  y  = ~Betweenness,
+  name = "Betweenness",
+  type = "bar"
+) %>% 
+  
+  layout(xaxis = list(categoryorder = "total descending"))
+
+
+subplot(fig, fig2) %>% 
+  layout(title = list(text = "Top 25 genes by the degree and betweenness in the matrixDB network"))
+
+
+```
+
+  </p>
+</details>
+
+
+
 ### Step 4: Estimate the networks and update matrigraph objects
 
 
