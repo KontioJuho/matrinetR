@@ -209,7 +209,7 @@ matrigraph_GTEx <- matrinet_graph(matridata = matridata_GTEx ,
 
 ```
 
-<details><summary>Click to a structural analysis example</summary>
+<details><summary>Click to open a visualization example</summary>
 <p>
   
   <img src="degreebetweenness.png" width="100%">
