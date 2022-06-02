@@ -334,6 +334,21 @@ visNetwork(visnet$nodes, visnet$edges) %>%
 #Convert the output matrigraph objects to weighted adjacency matrices
 weighted_adjmat <- matrigraph_to_adjacency(output_matrigraph = matrinet_TCGA)
   qgraph::qgraph(weighted_adjmat$prad, edge.color = "dodgerblue4", curve = -0.2, curveAll = TRUE)
+  
+  
+  
+  
+names(matrinet_TCGA) <- paste(names(matrinet_TCGA), "_TCGA", sep = "")
+names(matrinet_GTEx) <- paste(names(matrinet_GTEx), "_GTEx", sep = "")
+
+matrigraphs_TCGA_GTEx <- c(matrinet_TCGA,matrinet_GTEx)
+
+
+summary_cor_net <- matrigraph_summary(matrigraphs_TCGA_GTEx, metric = "cor_C")
+summary_MI_net <- matrigraph_summary(matrigraphs_TCGA_GTEx, metric = "MI_D")
+summary_JS_net <- matrigraph_summary(matrigraphs_TCGA_GTEx, metric = "JensenShannon_P")
+
+  
 
 ```
 
