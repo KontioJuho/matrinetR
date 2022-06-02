@@ -208,8 +208,12 @@ matrigraph_GTEx <- matrinet_graph(matridata = matridata_GTEx ,
 
 
 ```
+<details><summary>EXAMPLE 1: Build an interactive graph using the visNetwork package, </summary>
+<p>
+  </p>
+</details>
 
-<details><summary>Click to open a visualization example</summary>
+<details><summary>EXAMPLE 2: Run structural analyses with the qgraph package </summary>
 <p>
   
   <img src="degreebetweenness.png" width="100%">
