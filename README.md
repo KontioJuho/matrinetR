@@ -208,12 +208,36 @@ matrigraph_GTEx <- matrinet_graph(matridata = matridata_GTEx ,
 
 
 ```
-<details><summary>EXAMPLE 1: Build an interactive graph using the visNetwork package, </summary>
+
+The form of matrigraph objects is made compatible with a variety of existing package, such as igraph, qgraph, and visnetwork, that may be utilized before and after updating the matrigraph. See the examples below:  
+
+
+<details><summary>Example 1: How to build an interactive network representation? </summary>
 <p>
+  
+  Representing the entire network becomes difficult with static figures when the number of nodes is large. 
+  One posssible solution is to create an interactive graph with the possibility of zooming in and out. The code below shows how to create such a graph with the visNetwork package:
+  
+  ```r
+  
+  #Create an igraph object from the edgelist
+      g <- graph_from_data_frame(d = matrixDB)
+           
+  #Convert it to visnetwork object
+      visnet <- toVisNetworkData(g)
+
+  #Visualization steps
+      visNetwork(visnet$nodes, visnet$edges) %>%
+         visIgraphLayout(randomSeed = 123) %>%
+         visNodes(size = 10) %>%
+       visOptions(highlightNearest = list(enabled = T, hover = T), nodesIdSelection = T)
+
+  ```
+  
   </p>
 </details>
 
-<details><summary>EXAMPLE 2: Run structural analyses with the qgraph package </summary>
+<details><summary>Example 2: How to identify the genes with the hignest network degree and betweenness values? </summary>
 <p>
   
   <img src="degreebetweenness.png" width="100%">
