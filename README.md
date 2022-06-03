@@ -306,7 +306,7 @@ matrinet_GTEx <- matrinet_estimate(matrigraph = matrigraph_GTEx,
 
 ## Visualization (PLACEHOLDER)
 
-Given the estimated network structures, users could apply a wide range of existing package, such as igraph, qgraph, and visnetwork, to create visual representations of estimated network structures with the following conversion:
+Given the estimated network structures, users could apply a wide range of existing package, such as igraph, qgraph, and visnetwork, to create visual representations of estimated structures in global network scale (see examples below). 
 
 ```r
 
@@ -335,8 +335,10 @@ visNetwork(visnet$nodes, visnet$edges) %>%
 weighted_adjmat <- matrigraph_to_adjacency(output_matrigraph = matrinet_TCGA)
   qgraph::qgraph(weighted_adjmat$prad, edge.color = "dodgerblue4", curve = -0.2, curveAll = TRUE)
   
+  ```
+  The following examples illustrate how to analyse and compare estimated networks in a local scale.
   
-  
+  ```r
   
 names(matrinet_TCGA) <- paste(names(matrinet_TCGA), "_TCGA", sep = "")
 names(matrinet_GTEx) <- paste(names(matrinet_GTEx), "_GTEx", sep = "")
@@ -349,8 +351,8 @@ summary_MI_net <- matrigraph_summary(matrigraphs_TCGA_GTEx, metric = "MI_D")
 summary_JS_net <- matrigraph_summary(matrigraphs_TCGA_GTEx, metric = "JensenShannon_P")
 
   
-
 ```
+
 
 
 
