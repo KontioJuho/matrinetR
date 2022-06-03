@@ -336,9 +336,9 @@ weighted_adjmat <- matrigraph_to_adjacency(output_matrigraph = matrinet_TCGA)
   qgraph::qgraph(weighted_adjmat$prad, edge.color = "dodgerblue4", curve = -0.2, curveAll = TRUE)
   
   ```
-  The following examples illustrate how to analyse and compare estimated networks in a local scale.
-  
-  ```r
+
+## Build matrigraph summary objects
+```r
   
 
 library(netdiffuseR)
@@ -356,13 +356,15 @@ summary_cor_net <- matrigraph_summary(matrigraphs_TCGA_GTEx, metric = "cor_C")
 summary_MI_net <-  matrigraph_summary(matrigraphs_TCGA_GTEx, metric = "MI_D")
 summary_JS_net <-  matrigraph_summary(matrigraphs_TCGA_GTEx, metric = "JensenShannon_P")
 
+```
 
+## Structural network analysis 
+ The following examples illustrate how to analyse and compare structural properties of estimated networks using the summary data created above.
 
-
+```r
 
 matrixDB_summary <- centrality_auto(matrixDB_adjacency[valid_genes,valid_genes])
 node.df.update <- matrixDB_summary$node.centrality[,c("Degree", "Betweenness")]
-
 
 top10_degree_genes <- node.df.update[order(node.df.update[,"Degree"], decreasing = T)[1:10], ]
 
