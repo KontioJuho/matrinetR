@@ -96,8 +96,9 @@ matrinet_estimate <- function(matrigraph,
       gene1 <- as.vector(table(factor(matridata_D[,x[1]], levels = c(-1,0,1))))
       gene2 <- as.vector(table(factor(matridata_D[,x[2]], levels = c(-1,0,1))))
 
-      philentropy::JSD(rbind(gene1, gene2), unit = "log2")
+      a <- philentropy::JSD(rbind(gene1, gene2), unit = "log2")
 
+      10/(10+a)
 
 
 
