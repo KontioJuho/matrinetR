@@ -155,7 +155,7 @@ The matrinetR workflow begins by specifying the target genes of interest to chec
 
 ```r
 
-matrisome_genes <- unique(c(matrixDB$gene.x, matrixDB$gene.y))
+matrisome_genes <- unique(c(matrixDB_edgelist$Gene1, matrixDB_edgelist$Gene2))
 cancers <- c("brca", "ov", "prad")
 
 
