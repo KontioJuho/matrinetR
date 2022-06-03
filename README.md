@@ -359,7 +359,7 @@ summary_JS_net <-  matrigraph_summary(matrigraphs_TCGA_GTEx, metric = "JensenSha
 ```
 
 ## Structural network analysis 
- The following examples illustrate how to analyse and compare structural properties of estimated networks using the summary data created above.
+ The summary data from the previous section enables to analyse and compare structural properties of estimated networks. One could, for example, first identify genes with the highest degrees in the baseline matrixDB network structure, and see how the corresponding degrees are varying across cancers. 
 
 ```r
 
@@ -367,7 +367,9 @@ matrixDB_summary <- centrality_auto(matrixDB_adjacency[valid_genes,valid_genes])
 node.df.update <- matrixDB_summary$node.centrality[,c("Degree", "Betweenness")]
 
 top10_degree_genes <- node.df.update[order(node.df.update[,"Degree"], decreasing = T)[1:10], ]
-
+```
+The matrinetR package provides visualization function compare_nodestat which can be applied on any node-statistics ( "Betweenness", "Closeness", "Strength", "ExpectedInfluence") in the summary object. For example, functions below (one for each network estimation metric) compares the weighted degrees of the top-10-degree genes across all sample groups.    
+```r
 ########NODESTAT COMPARISON#######
 # "Betweenness"       "Closeness"         "Strength"          "ExpectedInfluence"
 
