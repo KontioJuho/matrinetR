@@ -340,6 +340,12 @@ weighted_adjmat <- matrigraph_to_adjacency(output_matrigraph = matrinet_TCGA)
   
   ```r
   
+
+library(netdiffuseR)
+library(plotly)
+
+
+
 names(matrinet_TCGA) <- paste(names(matrinet_TCGA), "_TCGA", sep = "")
 names(matrinet_GTEx) <- paste(names(matrinet_GTEx), "_GTEx", sep = "")
 
@@ -347,10 +353,38 @@ matrigraphs_TCGA_GTEx <- c(matrinet_TCGA,matrinet_GTEx)
 
 
 summary_cor_net <- matrigraph_summary(matrigraphs_TCGA_GTEx, metric = "cor_C")
-summary_MI_net <- matrigraph_summary(matrigraphs_TCGA_GTEx, metric = "MI_D")
-summary_JS_net <- matrigraph_summary(matrigraphs_TCGA_GTEx, metric = "JensenShannon_P")
+summary_MI_net <-  matrigraph_summary(matrigraphs_TCGA_GTEx, metric = "MI_D")
+summary_JS_net <-  matrigraph_summary(matrigraphs_TCGA_GTEx, metric = "JensenShannon_P")
 
-  
+
+
+
+
+matrixDB_summary <- centrality_auto(matrixDB_adjacency[valid_genes,valid_genes])
+node.df.update <- matrixDB_summary$node.centrality[,c("Degree", "Betweenness")]
+
+
+top10_degree_genes <- node.df.update[order(node.df.update[,"Degree"], decreasing = T)[1:10], ]
+
+########NODESTAT COMPARISON#######
+# "Betweenness"       "Closeness"         "Strength"          "ExpectedInfluence"
+
+t1 <- compare_nodestats(summary_MI_net, 
+                        genes = rownames(top10_degree_genes), 
+                        nodestat_type = "Strength")
+
+t2 <- compare_nodestats(summary_JS_net, 
+                        genes = rownames(top10_degree_genes), 
+                        nodestat_type = "Strength")
+
+t3 <- compare_nodestats(summary_cor_net, 
+                        genes = rownames(top10_degree_genes), 
+                        nodestat_type = "Strength")
+
+subplot(t1,t2,t3)
+
+
+
 ```
 
 
