@@ -372,7 +372,7 @@ node.df.update <- matrixDB_summary$node.centrality[,c("Degree", "Betweenness")]
 
 top10_degree_genes <- node.df.update[order(node.df.update[,"Degree"], decreasing = T)[1:10], ]
 ```
-The matrinetR package provides visualization function compare_nodestat which can be applied on any node-statistics ( "Betweenness", "Closeness", "Strength", "ExpectedInfluence") in the summary object. For example, functions below (one for each network estimation metric) compares the weighted degrees of the top-10-degree genes across all sample groups.    
+The matrinetR package provides plotly library based interactive visualization function *compare_nodestat*, which can be applied on any node-statistics ( "Betweenness", "Closeness", "Strength", "ExpectedInfluence") in the summary object. For example, functions below (one for each network estimation metric) compares the weighted degrees of the top-10-degree genes across all sample groups.    
 
 ![My Image4](degree_example.png)
 
@@ -398,17 +398,21 @@ t1 %>%  layout(title = "Weighted degrees: Mutual information network")
 t2 %>%  layout(title = "Weighted degrees: Jensen-Shannon network")
 t3 %>%  layout(title = "Weighted degrees: Correlation network")
 ```
-By observing that the largest amount of variation among gene degrees across different groups is within Syndecan 1 (SDC1), users 
-can analyse all of its interactions at once with the neighborhood_plot function as follows: 
+By observing the high amount of variation, e.g.,  among LOX degrees across different groups, one 
+can analyse all of its interactions at once with the ggplot2 package based neighborhood_plot function as follows: 
 ```r
 #From continuous expression values
-neighborhood_plot(matrigraphs_TCGA_GTEx, center_gene = "SDC1", weights = "cor_C")
+p1 <- neighborhood_plot(matrigraphs_TCGA_GTEx, center_gene = "LOX", weights = "cor_C")
+p1 + ggtitle("Correlation network")
 
 #From discretized expression values
-neighborhood_plot(matrigraphs_TCGA_GTEx, center_gene = "SDC1", weights = "MI_D")
+p2 <- neighborhood_plot(matrigraphs_TCGA_GTEx, center_gene = "LOX", weights = "MI_D")
+p2 + ggtitle("Mutual information network") 
 
+#The example figure above
 #From expression profiles
-neighborhood_plot(matrigraphs_TCGA_GTEx, center_gene = "SDC1", weights = "JensenShannon_P")
+p3 <- neighborhood_plot(matrigraphs_TCGA_GTEx, center_gene = "LOX", weights = "JensenShannon_P")
+p3 + ggtitle("Jensen-Shannon network") 
 
 ```
 
