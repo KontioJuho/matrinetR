@@ -304,7 +304,7 @@ matrinet_GTEx <- matrinet_estimate(matrigraph = matrigraph_GTEx,
 
 ```
 
-## Visualization (PLACEHOLDER)
+## Network analysis and visualisation
 
 Given the estimated network structures, users could apply a wide range of existing package, such as igraph, qgraph, and visnetwork, to create visual representations of estimated structures in global network scale (see examples below). 
 
@@ -337,7 +337,7 @@ weighted_adjmat <- matrigraph_to_adjacency(output_matrigraph = matrinet_TCGA)
   
   ```
 
-## Build matrigraph summary objects
+### Matrigraph summary object
 ```r
   
 
@@ -358,7 +358,7 @@ summary_JS_net <-  matrigraph_summary(matrigraphs_TCGA_GTEx, metric = "JensenSha
 
 ```
 
-## Structural network analysis 
+### Structural network analysis 
 
 
 
@@ -397,10 +397,23 @@ t3 <- compare_nodestats(summary_cor_net,
 t1 %>%  layout(title = "Weighted degrees: Mutual information network")
 t2 %>%  layout(title = "Weighted degrees: Jensen-Shannon network")
 t3 %>%  layout(title = "Weighted degrees: Correlation network")
+```
+By observing that the largest amount of variation among gene degrees across different groups is within Syndecan 1 (SDC1), users 
+can analyse all of its interactions at once with the neighborhood_plot function as follows: 
+```r
+#From continuous expression values
+neighborhood_plot(matrigraphs_TCGA_GTEx, center_gene = "SDC1", weights = "cor_C")
 
+#From discretized expression values
+neighborhood_plot(matrigraphs_TCGA_GTEx, center_gene = "SDC1", weights = "MI_D")
 
+#From expression profiles
+neighborhood_plot(matrigraphs_TCGA_GTEx, center_gene = "SDC1", weights = "JensenShannon_P")
 
 ```
+
+The above function can be applied to any other gene as well by changing the "center_gene" argument. In the resulting plot, all genes connected with the chosen center gene (connected in the matrixDB graph structure) are shown in the x-axis. Then each group-specific line represents pairwise associations (edge-weigts) between the center gene and the genes in the x-axis. This is the function used in the online MatriNet LX version.
+
 
 
 
