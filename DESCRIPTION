@@ -17,6 +17,10 @@ Imports:
     philentropy,
     dplyr,
     magrittr,
-    purrr
+    purrr,
+    qgraph,
+    tidyr,
+    plotly,
+    ggplot2
 Depends: 
     R (>= 2.10)
