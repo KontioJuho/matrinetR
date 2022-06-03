@@ -360,7 +360,7 @@ summary_JS_net <-  matrigraph_summary(matrigraphs_TCGA_GTEx, metric = "JensenSha
 
 ## Structural network analysis 
 
-![My Image4](degree_example.png)
+
 
 
 The summary data from the previous section enables to analyse and compare structural properties of estimated networks. One could, for example, first identify genes with the highest degrees in the baseline matrixDB network structure, and see how the corresponding degrees are varying across cancers. 
@@ -374,6 +374,7 @@ top10_degree_genes <- node.df.update[order(node.df.update[,"Degree"], decreasing
 ```
 The matrinetR package provides visualization function compare_nodestat which can be applied on any node-statistics ( "Betweenness", "Closeness", "Strength", "ExpectedInfluence") in the summary object. For example, functions below (one for each network estimation metric) compares the weighted degrees of the top-10-degree genes across all sample groups.    
 
+![My Image4](degree_example.png)
 
 ```r
 
@@ -381,6 +382,7 @@ t1 <- compare_nodestats(summary_MI_net,
                         genes = rownames(top10_degree_genes), 
                         nodestat_type = "Strength")
 
+#The example figure above
 t2 <- compare_nodestats(summary_JS_net, 
                         genes = rownames(top10_degree_genes), 
                         nodestat_type = "Strength")
@@ -389,7 +391,8 @@ t3 <- compare_nodestats(summary_cor_net,
                         genes = rownames(top10_degree_genes), 
                         nodestat_type = "Strength")
 
-
+#The entire layout can be customized with the plotly package. 
+#For example, titles can be changed as follows:
 
 t1 %>%  layout(title = "Weighted degrees: Mutual information network")
 t2 %>%  layout(title = "Weighted degrees: Jensen-Shannon network")
