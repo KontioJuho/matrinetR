@@ -359,7 +359,11 @@ summary_JS_net <-  matrigraph_summary(matrigraphs_TCGA_GTEx, metric = "JensenSha
 ```
 
 ## Structural network analysis 
- The summary data from the previous section enables to analyse and compare structural properties of estimated networks. One could, for example, first identify genes with the highest degrees in the baseline matrixDB network structure, and see how the corresponding degrees are varying across cancers. 
+
+![My Image4](degree_example.png)
+
+
+The summary data from the previous section enables to analyse and compare structural properties of estimated networks. One could, for example, first identify genes with the highest degrees in the baseline matrixDB network structure, and see how the corresponding degrees are varying across cancers. 
 
 ```r
 
