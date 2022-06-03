@@ -369,9 +369,9 @@ node.df.update <- matrixDB_summary$node.centrality[,c("Degree", "Betweenness")]
 top10_degree_genes <- node.df.update[order(node.df.update[,"Degree"], decreasing = T)[1:10], ]
 ```
 The matrinetR package provides visualization function compare_nodestat which can be applied on any node-statistics ( "Betweenness", "Closeness", "Strength", "ExpectedInfluence") in the summary object. For example, functions below (one for each network estimation metric) compares the weighted degrees of the top-10-degree genes across all sample groups.    
+
+
 ```r
-########NODESTAT COMPARISON#######
-# "Betweenness"       "Closeness"         "Strength"          "ExpectedInfluence"
 
 t1 <- compare_nodestats(summary_MI_net, 
                         genes = rownames(top10_degree_genes), 
@@ -385,7 +385,11 @@ t3 <- compare_nodestats(summary_cor_net,
                         genes = rownames(top10_degree_genes), 
                         nodestat_type = "Strength")
 
-subplot(t1,t2,t3)
+
+
+t1 %>%  layout(title = "Weighted degrees: Mutual information network")
+t2 %>%  layout(title = "Weighted degrees: Jensen-Shannon network")
+t3 %>%  layout(title = "Weighted degrees: Correlation network")
 
 
 
