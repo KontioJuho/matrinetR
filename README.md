@@ -416,6 +416,8 @@ p3 + ggtitle("Jensen-Shannon network")
 
 ```
 
+![My Image5](Rplot2.jpeg)
+
 The above function can be applied to any other gene as well by changing the "center_gene" argument. In the resulting plot, all genes connected with the chosen center gene (connected in the matrixDB graph structure) are shown in the x-axis. Then each group-specific line represents pairwise associations (edge-weigts) between the center gene and the genes in the x-axis. This is the function used in the online MatriNet LX version.
 
 
