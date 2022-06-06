@@ -157,6 +157,9 @@ The matrinetR workflow begins by specifying the target genes of interest to chec
 
 matrisome_genes <- unique(c(matrixDB_edgelist$Gene1, matrixDB_edgelist$Gene2))
 cancers <- c("brca", "ov", "prad")
+#check which cancers have samples from both cohorts:
+
+intersect(names(matrisome_TCGA), names(matrisome_GTEx))
 
 
 valid_genesTCGA <- available_genes(target_genes = matrisome_genes,
