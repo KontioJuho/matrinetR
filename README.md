@@ -420,7 +420,11 @@ tt_SUM <- t4 %>%  layout(yaxis = list(title = "PAIRWISE-SUM NETWORK", zeroline =
 
 ```
 By observing large differencies, e.g.,  among LOX degrees between BRCA-GTEx and other groups, one 
-could analyse all of its interactions at once in more detail with the ggplot2 package based neighborhood_plot function as follows: 
+could analyse all of its interactions at once in more detail with the **neighborhood_plot** function:
+
+<details><summary>Click to see a reproducible code (ggplot2): </summary>
+<p>
+
 ```r
 
 p1 <- neighborhood_plot(matrigraphs_TCGA_GTEx,
@@ -483,7 +487,8 @@ h2 <- annotate_figure(plotgrid,
 h2
 
 ```
-
+</details>
+  </p>
 ![My Image5](Rplot2.jpeg)
 
 The above function can be applied to any other gene as well by changing the "center_gene" argument. In the resulting plot, all genes connected with the chosen center gene (connected in the matrixDB graph structure) are shown in the x-axis. Then each group-specific line represents pairwise associations (edge-weigts) between the center gene and the genes in the x-axis. This is the function used in the online MatriNet LX version.
