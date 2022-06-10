@@ -22,6 +22,9 @@ Imports:
     tidyr,
     plotly,
     ggplot2,
-    RColorBrewer
+    RColorBrewer,
+    visNetwork,
+    netdiffuseR,
+    ggpubr
 Depends: 
     R (>= 2.10)
