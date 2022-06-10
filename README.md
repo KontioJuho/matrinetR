@@ -181,9 +181,10 @@ valid_genes <- intersect(valid_genesTCGA$available_zero_NAs,
 It returns 1) available genenames, 2) missing genenames, 3) available genes without missing values, and 4) available genes with  less than 5% of missing values over samples in any group. Note that the option IV requires an additional missing-value imputation method to be employed.
 
 ### Step 2: Create the input matridata 
-The next step is to the specify matridata objects for each cohort which automatically extacts available variables and checks if they are valid for the network estimation process. A variable is selected if it is measured on 95% of all samples in each selected cancer type and cohort (i.e. almost complete cases only).  If the number of missing values is less than 5% of all observations, the default imputation method is to use a variable and group specific median. 
+Matrinet estimation process evaluates dependency structures using different expression data forms (see above): To discretize expression levels, users have to provide thresholds for different levels. In example, the code below recodes gene-expression levels as -1, 0, and 1 (or low, medium, high) using thresholds corresponding to the expression levels of 10 TPMs and 1000 TPMs.
 
 ```r
+
 discretization_levels <- c(log2(10+1), log2(1000+1))
 
 matridata_GTEx <- matrinet_data(data = matrisome_GTEx[cancers],
