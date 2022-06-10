@@ -19,7 +19,7 @@ matrigraph_summary <- function(output_matrigraph, metric){
   adjmat_list <-  matrigraph_to_adjacency(output_matrigraph, weights_by = metric)
 
   test <- lapply(adjmat_list, function(tumor){
-
+    diag(tumor) <- 0
     qgraph::centrality_auto(tumor)
 
 
