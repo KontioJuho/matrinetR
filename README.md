@@ -427,6 +427,90 @@ could analyse all of its interactions at once in more detail with the **neighbor
 
 ```r
 
+
+
+
+theme_centrality <- theme(plot.background = element_rect(fill = "#DEE9EC"),
+                            panel.background = element_rect(fill = "#F3F9FA"),
+                            panel.grid.major=element_line(colour="#F2F2F2", size = 0.5),
+                            plot.title = element_text(family = "Helvetica", size = (12)),
+                            legend.title = element_blank(),
+                            axis.text.x = element_text(size = 8),
+                            legend.text =  element_text(face = "italic", colour = "steelblue4", family = "Helvetica"),
+                            axis.title = element_text(face = "italic",family = "Helvetica", size = (10), colour = "steelblue4"),
+                            axis.text = element_blank()
+)
+
+g1 <- compare_nodestats(summary_MI_net,
+                        genes = rownames(top10_degree_genes),
+                        nodestat_type = node_statistics,
+                        output = "ggplot")
+g1 <- g1 + ggtitle("Mutual information network") + xlab("The most influential genes in the matrixDB network") + ylab("Estimated influence") +
+  theme_centrality + scale_fill_brewer(palette = "Paired", direction = 1)
+
+#The example figure above
+g2 <- compare_nodestats(summary_JS_net,
+                        genes = rownames(top10_degree_genes),
+                        nodestat_type = node_statistics,
+                        output = "ggplot")
+
+g2 <- g2 + ggtitle("Jensen-Shannon network") + xlab("The most influential genes in the matrixDB network") + ylab("Estimated  influence") +
+  theme_centrality + scale_fill_brewer(palette = "Paired", direction = 1)
+
+g3 <- compare_nodestats(summary_cor_net,
+                        genes = rownames(top10_degree_genes),
+                        nodestat_type = node_statistics,
+                        output = "ggplot")
+ g3 <- g3 + ggtitle("Correlation network") + xlab("The most influential genes in the matrixDB network") + ylab("Estimated influence") +
+   theme_centrality + scale_fill_brewer(palette = "Paired", direction = 1)
+
+g4 <- compare_nodestats(summary_sum_net,
+                        genes = rownames(top10_degree_genes),
+                        nodestat_type = node_statistics,
+                        output = "ggplot")
+g4 <- g4+ ggtitle("Pairwise-sum network") + xlab("The most influential genes in the matrixDB network") + ylab("Estimated influence") +
+   theme_centrality + scale_fill_brewer(palette = "Paired", direction = 1)
+
+
+
+plotgrid1 <- ggarrange(g3,g1,g4,g2,ncol = 1, legend = "top", common.legend = TRUE)
+
+h1 <- annotate_figure(plotgrid1,
+                top = text_grob("Gene centrality comparison", color = "black", face = "bold", size = 12),
+                bottom = text_grob("Data source:", color = "white",
+                                   hjust = 1, x = 1, face = "italic", size = 10),
+                fig.lab = "A", fig.lab.face = "bold",
+                fig.lab.size = 12
+)
+h1
+
+```
+</details>
+  </p>
+  
+![My Image5](Rplot2.jpeg)
+
+The above function can be applied to any other gene as well by changing the "center_gene" argument. In the resulting plot, all genes connected with the chosen center gene (connected in the matrixDB graph structure) are shown in the x-axis. Then each group-specific line represents pairwise associations (edge-weigts) between the center gene and the genes in the x-axis. This is the function used in the online MatriNet LX version.
+
+
+
+<details><summary>Click to see a reproducible code (ggplot2): </summary>
+<p>
+
+```r
+
+  theme_neighborhood <- theme(plot.background = element_rect(fill = "#DEE9EC"),
+                            panel.background = element_rect(fill = "#F3F9FA"),
+                            panel.grid.major=element_line(colour="#F2F2F2", size = 0.5),
+                            plot.title = element_text(family = "Helvetica", size = (12)),
+                            legend.title = element_blank(),
+                            axis.text.x = element_text(size = 7),
+                            legend.text =  element_text(face = "italic", colour = "steelblue4", family = "Helvetica"),
+                            axis.title = element_text(face = "italic",family = "Helvetica", size = (10), colour = "steelblue4"),
+                            axis.text = element_blank()
+)
+
+  
 p1 <- neighborhood_plot(matrigraphs_TCGA_GTEx,
                         prior_topology = matrixDB_adjacency[valid_genes,valid_genes],
                         center_gene = center_genename,
@@ -489,12 +573,6 @@ h2
 ```
 </details>
   </p>
-![My Image5](Rplot2.jpeg)
-
-The above function can be applied to any other gene as well by changing the "center_gene" argument. In the resulting plot, all genes connected with the chosen center gene (connected in the matrixDB graph structure) are shown in the x-axis. Then each group-specific line represents pairwise associations (edge-weigts) between the center gene and the genes in the x-axis. This is the function used in the online MatriNet LX version.
-
-
-
 
 
 _For more examples, please refer to the [Documentation]()_
