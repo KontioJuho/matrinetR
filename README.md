@@ -154,10 +154,6 @@ The weights are then added as new columns to the inital matrigraph edgelist (as 
 The matrinetR workflow begins by specifying the target genes of interest to check if they are accessible in the gene/protein data set. Furthermore, the input datasets are considered to be valid for the network estimation process only with complete observations, i.e.,  without any missing values.  Both gene availability and validity can be checked automatically with the provided "available_genes"  functions with two arguments: a character vector of target genes and the input data. 
 
 ```r
-library(plotly)
-library(qgraph)
-library(igraph)
-library(visNetwork)
 library(matrinetR)
 
 matrisome_genes <- unique(c(matrixDB_edgelist$Gene1, matrixDB_edgelist$Gene2))
