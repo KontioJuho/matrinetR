@@ -205,14 +205,10 @@ The next step is to create initial matrigraph objects from the matrixDB data for
 ```r
 
 matrigraph_TCGA <- matrinet_graph(matridata = matridata_TCGA,
-                                  prior_topology = matrixDB_adjacency[valid_genes,
-                                                                      valid_genes])
+                                  prior_topology = matrixDB_adjacency[valid_genes,valid_genes])
 
 matrigraph_GTEx <- matrinet_graph(matridata = matridata_GTEx ,
-                                  prior_topology = matrixDB_adjacency[valid_genes,
-                                                                      valid_genes])
-
-
+                                  prior_topology = matrixDB_adjacency[valid_genes,valid_genes])
 
 ```
 
@@ -351,17 +347,18 @@ weighted_adjmat <- matrigraph_to_adjacency(output_matrigraph = matrinet_TCGA)
 library(netdiffuseR)
 library(plotly)
 
-
-
 names(matrinet_TCGA) <- paste(names(matrinet_TCGA), "_TCGA", sep = "")
 names(matrinet_GTEx) <- paste(names(matrinet_GTEx), "_GTEx", sep = "")
+
 
 matrigraphs_TCGA_GTEx <- c(matrinet_TCGA,matrinet_GTEx)
 
 
-summary_cor_net <- matrigraph_summary(matrigraphs_TCGA_GTEx, metric = "cor_C")
-summary_MI_net <-  matrigraph_summary(matrigraphs_TCGA_GTEx, metric = "MI_D")
-summary_JS_net <-  matrigraph_summary(matrigraphs_TCGA_GTEx, metric = "JensenShannon_P")
+summary_cor_net <-  matrigraph_summary(matrigraphs_TCGA_GTEx, metric = "cor_C")
+summary_MI_net  <-  matrigraph_summary(matrigraphs_TCGA_GTEx, metric = "MI_D")
+summary_JS_net  <-  matrigraph_summary(matrigraphs_TCGA_GTEx, metric = "JensenShannon_P")
+summary_sum_net <-  matrigraph_summary(matrigraphs_TCGA_GTEx, metric = "sum_D")
+
 
 ```
 
@@ -370,56 +367,120 @@ summary_JS_net <-  matrigraph_summary(matrigraphs_TCGA_GTEx, metric = "JensenSha
 
 
 
-The summary data from the previous section enables to analyse and compare structural properties of estimated networks. One could, for example, first identify genes with the highest degrees in the baseline matrixDB network structure, and see how the corresponding degrees are varying across cancers. 
+The summary data from the previous section enables to analyse and compare structural properties of estimated networks. One could, for example, first identify genes with the highest expected influences in the baseline matrixDB network structure, and see how the corresponding degrees are varying across cancers. 
 
 ```r
 
-matrixDB_summary <- centrality_auto(matrixDB_adjacency[valid_genes,valid_genes])
-node.df.update <- matrixDB_summary$node.centrality[,c("Degree", "Betweenness")]
+node_statistics <- "ExpectedInfluence"
+center_genename  <- "LOX"
 
-top10_degree_genes <- node.df.update[order(node.df.update[,"Degree"], decreasing = T)[1:10], ]
+
+matrixDB_summary <- centrality_auto(matrixDB_adjacency[valid_genes,valid_genes])
+node.df.update <- matrixDB_summary$node.centrality
+
+top10_degree_genes <- node.df.update[order(node.df.update[,node_statistics], decreasing = T)[1:10], ]
+
+
 ```
-The matrinetR package provides plotly library based interactive visualization function *compare_nodestat*, which can be applied on any node-statistics ( "Betweenness", "Closeness", "Strength", "ExpectedInfluence") in the summary object. For example, functions below (one for each network estimation metric) compares the weighted degrees of the top-10-degree genes across all sample groups.    
+The matrinetR package provides plotly and ggplot (see output argument) based interactive visualization function *compare_nodestat*, which can be applied on any node-statistics ( "Betweenness", "Closeness", "Strength", "ExpectedInfluence") in the summary object. For example, functions below (one for each network estimation metric) compares the weighted degrees of the top-10-degree genes across all sample groups.    
 
 ![My Image6](Rplot3.jpeg)
 
 ```r
 
-t1 <- compare_nodestats(summary_MI_net, 
-                        genes = rownames(top10_degree_genes), 
-                        nodestat_type = "Strength")
+t1 <- compare_nodestats(summary_MI_net,
+                        genes = rownames(top10_degree_genes),
+                        nodestat_type = node_statistics,
+                        output = "plotly")
 
 #The example figure above
-t2 <- compare_nodestats(summary_JS_net, 
-                        genes = rownames(top10_degree_genes), 
-                        nodestat_type = "Strength")
+t2 <- compare_nodestats(summary_JS_net,
+                        genes = rownames(top10_degree_genes),
+                        nodestat_type = node_statistics,
+                        output = "plotly")
 
-t3 <- compare_nodestats(summary_cor_net, 
-                        genes = rownames(top10_degree_genes), 
-                        nodestat_type = "Strength")
+t3 <- compare_nodestats(summary_cor_net,
+                        genes = rownames(top10_degree_genes),
+                        nodestat_type = node_statistics,
+                        output = "plotly")
 
-#The entire layout can be customized with the plotly package. 
+t4 <- compare_nodestats(summary_SUM_net,
+                        genes = rownames(top10_degree_genes),
+                        nodestat_type = node_statistics,
+                        output = "plotly")
+
+#The entire layout can be customized with the plotly package.
 #For example, titles can be changed as follows:
 
-t1 %>%  layout(title = "Weighted degrees: Mutual information network")
-t2 %>%  layout(title = "Weighted degrees: Jensen-Shannon network")
-t3 %>%  layout(title = "Weighted degrees: Correlation network")
+tt_MI <- t1 %>%  layout(yaxis = list(title = "MUTUAL-INFORMATION NETWORK", zeroline = F))  
+tt_JS <- t2 %>%  layout(yaxis = list(title = "JENSEN-SHANNON NETWORK", zeroline = F)) 
+tt_cor <- t3 %>%  layout(yaxis = list(title = "CORRELATION NETWORK", zeroline = F))
+tt_SUM <- t4 %>%  layout(yaxis = list(title = "PAIRWISE-SUM NETWORK", zeroline = F)) 
+
+
 ```
 By observing large differencies, e.g.,  among LOX degrees between BRCA-GTEx and other groups, one 
 could analyse all of its interactions at once in more detail with the ggplot2 package based neighborhood_plot function as follows: 
 ```r
-#From continuous expression values
-p1 <- neighborhood_plot(matrigraphs_TCGA_GTEx, center_gene = "LOX", weights = "cor_C")
-p1 + ggtitle("Correlation network")
 
-#From discretized expression values
-p2 <- neighborhood_plot(matrigraphs_TCGA_GTEx, center_gene = "LOX", weights = "MI_D")
-p2 + ggtitle("Mutual information network") 
+p1 <- neighborhood_plot(matrigraphs_TCGA_GTEx,
+                        prior_topology = matrixDB_adjacency[valid_genes,valid_genes],
+                        center_gene = center_genename,
+                        weights = "cor_C",
+                        smoothness = 1/5)
+
+p1 <- p1 + ggtitle("Correlation network") +
+           theme_neighborhood +
+           scale_color_brewer(palette = "Paired", direction = 1)
+
+
+p2 <- neighborhood_plot(matrigraphs_TCGA_GTEx,
+                        prior_topology = matrixDB_adjacency[valid_genes,valid_genes],
+                        center_gene = center_genename,
+                        weights = "MI_D",
+                        smoothness = 1/5)
+
+p2 <- p2 + ggtitle("Mutual information network") +
+           theme_neighborhood +
+           scale_color_brewer(palette = "Paired", direction = 1)
 
 #The example figure above
 #From expression profiles
-p3 <- neighborhood_plot(matrigraphs_TCGA_GTEx, center_gene = "LOX", weights = "JensenShannon_P")
-p3 + ggtitle("Jensen-Shannon network") 
+p3 <- neighborhood_plot(matrigraphs_TCGA_GTEx,
+                        prior_topology = matrixDB_adjacency[valid_genes,valid_genes],
+                        center_gene = center_genename,
+                        weights = "JensenShannon_P",
+                        smoothness = 1/5)
+
+p3 <- p3 + ggtitle("Jensen-Shannon network")+
+           theme_neighborhood +
+           scale_color_brewer(palette = "Paired", direction = 1)
+
+
+p4 <- neighborhood_plot(matrigraphs_TCGA_GTEx,
+                        prior_topology = matrixDB_adjacency[valid_genes,valid_genes],
+                        center_gene = center_genename,
+                        weights = "sum_D",
+                        smoothness = 1/5)
+
+p4 <- p4 + ggtitle("Pairwise-sum network")+
+           theme_neighborhood +
+           scale_color_brewer(palette = "Paired", direction = 1)
+
+
+plotgrid <- ggarrange(p1,p2,p4,p3, ncol = 1,
+                      legend = "top", common.legend = TRUE)
+
+
+h2 <- annotate_figure(plotgrid,
+                top = text_grob("LOX neighborhood comparison", color = "black", face = "bold", size = 12),
+                bottom = text_grob("Data source:", color = "white",
+                                   hjust = 1, x = 1, face = "italic", size = 10),
+                fig.lab = "B", fig.lab.face = "bold",
+                fig.lab.size = 12
+)
+
+h2
 
 ```
 
