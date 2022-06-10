@@ -27,7 +27,7 @@ neighborhood_plot <- function(matrigraph_output, prior_topology,
 
 
   t <- reduce(lapply(adjmats, function(data){
-
+    diag(data) <- 0
     refmat <- prior_topology
     data[names(which(refmat[,center_gene] != 0)), center_gene]
 
