@@ -156,27 +156,26 @@ The matrinetR workflow begins by specifying the target genes of interest to chec
 ```r
 library(matrinetR)
 
-matrisome_genes <- unique(c(matrixDB_edgelist$Gene1, matrixDB_edgelist$Gene2))
-
-#check which cancers have samples from both cohorts:
+#Check which cancers have samples from both cohorts:
 intersect(names(matrisome_TCGA), names(matrisome_GTEx))
 
-#In this example, we will use a small subset of cancers: 
+#In this example, we will use a small subset of cancers:
 cancers <- c("brca", "ov", "prad")
 
 
+#Check which genes are available without NA values
+
+matrisome_genes <- unique(c(matrixDB_edgelist$Gene1, matrixDB_edgelist$Gene2))
 
 valid_genesTCGA <- available_genes(target_genes = matrisome_genes,
                                    data = matrisome_TCGA[cancers])
-                                   
-valid_genesGTEx <- available_genes(target_genes = matrisome_genes, 
+
+valid_genesGTEx <- available_genes(target_genes = matrisome_genes,
                                    data = matrisome_GTEx[cancers])
 
-
+#Select the genes that are available and valid in both cohorts 
 valid_genes <- intersect(valid_genesTCGA$available_zero_NAs,
                          valid_genesGTEx$available_zero_NAs)
-
-
 
 ```
 It returns 1) available genenames, 2) missing genenames, 3) available genes without missing values, and 4) available genes with  less than 5% of missing values over samples in any group. Note that the option IV requires an additional missing-value imputation method to be employed.
