@@ -427,7 +427,7 @@ could analyse all of its interactions at once in more detail with the **neighbor
 
 ```r
 
-
+library(ggpubr)
 
 
 theme_centrality <- theme_neighborhood <- theme(plot.background = element_rect(fill = "#DEE9EC"),
