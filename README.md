@@ -430,7 +430,7 @@ could analyse all of its interactions at once in more detail with the **neighbor
 
 
 
-theme_centrality <- theme(plot.background = element_rect(fill = "#DEE9EC"),
+theme_centrality <- theme_neighborhood <- theme(plot.background = element_rect(fill = "#DEE9EC"),
                             panel.background = element_rect(fill = "#F3F9FA"),
                             panel.grid.major=element_line(colour="#F2F2F2", size = 0.5),
                             plot.title = element_text(family = "Helvetica", size = (12)),
