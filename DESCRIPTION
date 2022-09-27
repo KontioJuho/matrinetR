@@ -17,6 +17,14 @@ Imports:
     philentropy,
     dplyr,
     magrittr,
-    purrr
+    purrr,
+    qgraph,
+    tidyr,
+    plotly,
+    ggplot2,
+    RColorBrewer,
+    visNetwork,
+    netdiffuseR,
+    ggpubr
 Depends: 
     R (>= 2.10)

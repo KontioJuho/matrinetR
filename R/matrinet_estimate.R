@@ -1,7 +1,7 @@
 
 #' Matrinet network estimation function
 #'
-#' @param matrigraph_input Output object from the matrinet_graph function
+#' @param matrigraph Output object from the matrinet_graph function
 #' @param matridata Output object from the matrinet_data function
 #'
 #' @examples print(c("matrinet_estimate(matrigraph, matridata)"))
@@ -10,11 +10,10 @@
 #' @import philentropy
 #' @export
 
-matrinet_estimate <- function(matrigraph_input,
+matrinet_estimate <- function(matrigraph,
                               matridata){
 
 
-  matrigraph <- matrigraph_input
 
 
   for(cancer in names(matrigraph)){
@@ -30,11 +29,13 @@ matrinet_estimate <- function(matrigraph_input,
 
     ################## EDGE-DATA ########################
 
+    matrigraph[[cancer]]$edge_df$sum_D <- apply(matrigraph[[cancer]]$edge_df, 1, function(x){
+
+      mean((matridata_D[,x[1]] + matridata_D[,x[2]]))})
+
     matrigraph[[cancer]]$edge_df$diff_D <- apply(matrigraph[[cancer]]$edge_df, 1, function(x){
 
-      mean(abs(matridata_D[,x[1]] - matridata_D[,x[2]]))})
-
-
+      mean((matridata_D[,x[1]] - matridata_D[,x[2]]))})
 
     matrigraph[[cancer]]$edge_df$prod_D <- apply(matrigraph[[cancer]]$edge_df, 1, function(x){
 
@@ -95,14 +96,29 @@ matrinet_estimate <- function(matrigraph_input,
     matrigraph[[cancer]]$edge_df$JensenShannon_P <- apply(matrigraph[[cancer]]$edge_df, 1, function(x){
 
       gene1 <- as.vector(table(factor(matridata_D[,x[1]], levels = c(-1,0,1))))
+      gene1 <- gene1/sum(gene1)
       gene2 <- as.vector(table(factor(matridata_D[,x[2]], levels = c(-1,0,1))))
+      gene2 <- gene2/sum(gene2)
 
-      philentropy::JSD(rbind(gene1, gene2), unit = "log2")
+      1 - philentropy::jensen_shannon(P = gene1, Q = gene2,
+                                                   testNA = FALSE, unit = "log2")
 
 
 
 
     })
+
+
+
+
+
+
+
+
+
+
+
+
   }
   return(matrigraph)
 }
