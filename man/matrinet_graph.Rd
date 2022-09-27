@@ -2,17 +2,17 @@
 % Please edit documentation in R/matrinet_graph.R
 \name{matrinet_graph}
 \alias{matrinet_graph}
-\title{Initialize matrigraph object}
+\title{Create matrigraph object}
 \usage{
 matrinet_graph(
-  datalist,
+  matridata,
   prior_topology,
   add_node_df = NULL,
   add_edge_df = NULL
 )
 }
 \arguments{
-\item{datalist}{The output from matrinet_init() function or any list of group (cancer) specific data-frames containing node covariates, e.g., gene or protein expression data. Extracted automatically from the dataframe by the column names of prior_topology object.}
+\item{matridata}{The output from matrinet_data() function or any list of group (cancer) specific data-frames containing node covariates, e.g., gene or protein expression data. Extracted automatically from the dataframe by the column names of prior_topology object.}
 
 \item{prior_topology}{An adjacency matrix providing a fixed skeleton for the network. The default structure is given by the matrixDB interaction data.}
 
@@ -27,5 +27,5 @@ Returns a list of group (cancer) specific matrigraph objects, with 1) node_df, 2
 Create the initial skeleton of matrigraph object for storing network data.
 }
 \examples{
-print(c("matrinet_graph(datalist, prior_topology)"))
+print(c("matrinet_graph(matridata, prior_topology)"))
 }

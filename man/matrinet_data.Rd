@@ -4,14 +4,14 @@
 \alias{matrinet_data}
 \title{Test title}
 \usage{
-matrinet_data(datalist, quantiles, genenams)
+matrinet_data(data, quantiles, genenames)
 }
 \arguments{
-\item{datalist}{A dataframe or list of group (cancer) dataframes containing target gene variables as column vectors. Additional variables (e.g. sampleIDs) could be included, target genes/proteins are extracted automatically from the dataframe by the column names of prior_topology object}
+\item{data}{A dataframe or list of group (cancer) dataframes containing target gene variables as column vectors. Additional variables (e.g. sampleIDs) could be included, target genes/proteins are extracted automatically from the dataframe by the column names of prior_topology object}
 
-\item{quantiles}{A dataframe or list of cancer-specific gene expression discretization levels for each gene.}
+\item{quantiles}{At simplest a numeric vector with two values to discretize gene expression levels. Can be also a list of different levels for each gene and cancer type.}
 
-\item{genenams}{A character vector of target gene names}
+\item{genenames}{A character vector of target gene names}
 }
 \value{
 A matridata object that can be used as an input for matrinet_estimate function.

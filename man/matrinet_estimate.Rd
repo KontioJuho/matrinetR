@@ -4,10 +4,10 @@
 \alias{matrinet_estimate}
 \title{Matrinet network estimation function}
 \usage{
-matrinet_estimate(matrigraph_input, matridata)
+matrinet_estimate(matrigraph, matridata)
 }
 \arguments{
-\item{matrigraph_input}{Output object from the matrinet_graph function}
+\item{matrigraph}{Output object from the matrinet_graph function}
 
 \item{matridata}{Output object from the matrinet_data function}
 }

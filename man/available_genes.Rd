@@ -4,27 +4,12 @@
 \alias{available_genes}
 \title{Identify available, matching and valid target genes from TCGA and GTEx cohorts}
 \usage{
-available_genes(
-  genenames,
-  TCGA,
-  GTEx,
-  cancers,
-  remove.allNA = TRUE,
-  cohort = c("TCGA", "GTEx")
-)
+available_genes(target_genes, data)
 }
 \arguments{
-\item{genenames}{A character vector of target gene names}
+\item{target_genes}{A character vector of target gene names}
 
-\item{TCGA}{A list of TCGA dataframes}
-
-\item{GTEx}{A list of GTEx dataframes}
-
-\item{cancers}{A character vector of TCGA abbreviations (TCGA) to extract cancer datasets of interest.}
-
-\item{remove.allNA}{TRUE (default) or FALSE denoting if gene/proteins having all values as NA in any dataframe (e.g. cancer specific) should be removed. Default is TRUE and problematic gene/protein columns will be removed consistently from all dataframes.}
-
-\item{cohort}{Available and valid genes could be checked from the built-in TCGA or GTEx cohorts individually ("TCGA" or "GTEx") or simultaneously (c("TCGA", "GTEx")).}
+\item{data}{A dataframe of list of dataframes.}
 }
 \value{
 Gene or protein names available in both GTEx and TCGA cohorts for all cancers. If remove.allNA is true, also genes/proteins with all values as NA in any cancer dataframe is are removed.
